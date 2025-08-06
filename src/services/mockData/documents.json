@@ -6,6 +6,7 @@
     "uploadDate": "2024-12-01T08:30:00.000Z",
     "fileSize": 2457600,
     "category": "Tax Planning",
+    "trifectaComponent": "Foundation",
     "downloadUrl": "/documents/tax-strategy-2024.pdf"
   },
   {
@@ -15,6 +16,7 @@
     "uploadDate": "2024-11-28T14:15:00.000Z",
     "fileSize": 1048576,
     "category": "Business Records",
+    "trifectaComponent": "Operations",
     "downloadUrl": "/documents/q3-expenses.xlsx"
   },
   {
@@ -24,6 +26,7 @@
     "uploadDate": "2024-11-25T10:45:00.000Z",
     "fileSize": 3221225,
     "category": "Asset Protection",
+    "trifectaComponent": "Holdings",
     "downloadUrl": "/documents/asset-protection.pdf"
   },
   {
@@ -33,6 +36,7 @@
     "uploadDate": "2024-11-20T16:20:00.000Z",
     "fileSize": 1887436,
     "category": "Wealth Building",
+    "trifectaComponent": "Holdings",
     "downloadUrl": "/documents/portfolio-review.pdf"
   },
   {
@@ -42,6 +46,7 @@
     "uploadDate": "2024-11-18T09:30:00.000Z",
     "fileSize": 524288,
     "category": "Legal Documents",
+    "trifectaComponent": "Foundation",
     "downloadUrl": "/documents/llc-agreement.docx"
   },
   {
@@ -51,6 +56,7 @@
     "uploadDate": "2024-11-15T11:00:00.000Z",
     "fileSize": 1572864,
     "category": "Tax Returns",
+    "trifectaComponent": "Foundation",
     "downloadUrl": "/documents/2023-tax-return.pdf"
   },
   {
@@ -60,6 +66,7 @@
     "uploadDate": "2024-11-12T13:45:00.000Z",
     "fileSize": 786432,
     "category": "Retirement Planning",
+    "trifectaComponent": "Holdings",
     "downloadUrl": "/documents/retirement-worksheet.xlsx"
   },
   {
@@ -69,6 +76,7 @@
     "uploadDate": "2024-11-08T15:30:00.000Z",
     "fileSize": 917504,
     "category": "Estate Planning",
+    "trifectaComponent": "Foundation",
     "downloadUrl": "/documents/estate-checklist.pdf"
   },
   {
@@ -78,6 +86,7 @@
     "uploadDate": "2024-11-05T12:15:00.000Z",
     "fileSize": 655360,
     "category": "Business Structure",
+    "trifectaComponent": "Operations",
     "downloadUrl": "/documents/entity-comparison.docx"
   },
   {
@@ -87,6 +96,7 @@
     "uploadDate": "2024-11-01T10:00:00.000Z",
     "fileSize": 2097152,
     "category": "Investment Analysis",
+    "trifectaComponent": "Holdings",
     "downloadUrl": "/documents/risk-assessment.pdf"
   },
   {
@@ -96,6 +106,7 @@
     "uploadDate": "2024-10-28T14:20:00.000Z",
     "fileSize": 943718,
     "category": "Tax Planning",
+    "trifectaComponent": "Foundation",
     "downloadUrl": "/documents/deduction-tracker.xlsx"
   },
   {
@@ -105,6 +116,37 @@
     "uploadDate": "2024-10-25T16:45:00.000Z",
     "fileSize": 1310720,
     "category": "Estate Planning",
+    "trifectaComponent": "Foundation",
     "downloadUrl": "/documents/trust-agreement.pdf"
+  },
+  {
+    "Id": 13,
+    "name": "Operational Procedures Manual.pdf",
+    "type": "pdf",
+    "uploadDate": "2024-10-20T09:15:00.000Z",
+    "fileSize": 4194304,
+    "category": "Operations Manual",
+    "trifectaComponent": "Operations",
+    "downloadUrl": "/documents/operations-manual.pdf"
+  },
+  {
+    "Id": 14,
+    "name": "Cash Flow Analysis Q4.xlsx",
+    "type": "xlsx",
+    "uploadDate": "2024-10-15T14:30:00.000Z",
+    "fileSize": 1310720,
+    "category": "Financial Analysis",
+    "trifectaComponent": "Operations",
+    "downloadUrl": "/documents/cashflow-q4.xlsx"
+  },
+  {
+    "Id": 15,
+    "name": "Real Estate Holdings Summary.pdf",
+    "type": "pdf",
+    "uploadDate": "2024-10-10T11:45:00.000Z",
+    "fileSize": 2621440,
+    "category": "Real Estate",
+    "trifectaComponent": "Holdings",
+    "downloadUrl": "/documents/realestate-summary.pdf"
   }
 ]

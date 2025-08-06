@@ -48,3 +48,33 @@ export const deleteDocument = async (id) => {
   const deletedDocument = documents.splice(index, 1)[0];
   return { ...deletedDocument };
 };
+
+// Enhanced filtering functions for Trifecta categorization
+export const getDocumentsByTrifectaComponent = async (component) => {
+  await delay(300);
+  const allDocuments = [...documents];
+  return allDocuments.filter(doc => doc.trifectaComponent === component);
+};
+
+export const getDocumentsByCategory = async (category) => {
+  await delay(200);
+  const allDocuments = [...documents];
+  return allDocuments.filter(doc => doc.category === category);
+};
+
+export const getDocumentsByType = async (type) => {
+  await delay(200);
+  const allDocuments = [...documents];
+  return allDocuments.filter(doc => doc.type === type);
+};
+
+export const getDocumentsByDateRange = async (startDate, endDate) => {
+  await delay(300);
+  const allDocuments = [...documents];
+  return allDocuments.filter(doc => {
+    const docDate = new Date(doc.uploadDate);
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    return docDate >= start && docDate <= end;
+  });
+};
