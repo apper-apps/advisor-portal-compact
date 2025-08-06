@@ -15,7 +15,17 @@ export const getClientById = async (id) => {
   if (!client) {
     throw new Error("Client not found");
   }
-  return { ...client };
+  
+  // Add foundation status for client
+  const foundationStatus = {
+    overallProgress: id === 1 ? "75" : "25",
+    trustCreated: id === 1 ? true : false,
+    assetsFunded: id === 1 ? true : false,
+    successorDesignated: id === 1 ? false : false,
+    legacyFramework: id === 1 ? false : false
+  };
+  
+  return { ...client, foundationStatus };
 };
 
 export const createClient = async (clientData) => {

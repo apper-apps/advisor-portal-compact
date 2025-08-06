@@ -9,18 +9,21 @@ import Error from "@/components/ui/Error";
 import Empty from "@/components/ui/Empty";
 import { getDocuments } from "@/services/api/documentService";
 
-const DocumentsTable = () => {
+const DocumentsTable = ({ category = null }) => {
   const [documents, setDocuments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
 
-  const loadDocuments = async () => {
+const loadDocuments = async () => {
     try {
       setLoading(true);
       setError("");
       const data = await getDocuments();
-      setDocuments(data);
+      const filteredData = category 
+        ? data.filter(doc => doc.category === category)
+        : data;
+      setDocuments(filteredData);
     } catch (err) {
       setError("Failed to load documents. Please try again.");
       console.error("Error loading documents:", err);

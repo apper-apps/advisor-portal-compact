@@ -5,6 +5,7 @@ import Sidebar from "@/components/organisms/Sidebar";
 import Header from "@/components/organisms/Header";
 import Dashboard from "@/components/pages/Dashboard";
 import Documents from "@/components/pages/Documents";
+import Foundation from "@/components/pages/Foundation";
 import TaxPlanning from "@/components/pages/TaxPlanning";
 import WealthBuilding from "@/components/pages/WealthBuilding";
 
@@ -28,9 +29,10 @@ function App() {
           <Header onMenuToggle={handleMenuToggle} clientName="John Smith" />
           
           <main className="p-6 lg:p-8">
-            <Routes>
+<Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/documents" element={<Documents />} />
+              <Route path="/foundation" element={<Foundation />} />
               <Route path="/tax-planning" element={<TaxPlanning />} />
               <Route path="/wealth-building" element={<WealthBuilding />} />
             </Routes>

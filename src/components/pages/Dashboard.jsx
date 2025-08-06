@@ -237,6 +237,19 @@ const Dashboard = () => {
                   <ApperIcon name="ChevronRight" className="h-4 w-4 text-gray-400 group-hover:text-green-600" />
                 </button>
                 
+<button className="w-full flex items-center gap-3 p-3 text-left rounded-lg hover:bg-gray-50 transition-colors group">
+                  <div className="w-8 h-8 bg-navy-100 rounded-lg flex items-center justify-center">
+                    <ApperIcon name="Building2" className="h-4 w-4 text-navy-600" />
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-sm font-semibold text-navy-900 group-hover:text-navy-600">
+                      Foundation Setup
+                    </p>
+                    <p className="text-xs text-gray-600">Manage trust and estate plan</p>
+                  </div>
+                  <ApperIcon name="ChevronRight" className="h-4 w-4 text-gray-400 group-hover:text-navy-600" />
+                </button>
+                
                 <button className="w-full flex items-center gap-3 p-3 text-left rounded-lg hover:bg-gray-50 transition-colors group">
                   <div className="w-8 h-8 bg-gold-100 rounded-lg flex items-center justify-center">
                     <ApperIcon name="TrendingUp" className="h-4 w-4 text-gold-600" />
