@@ -1,45 +1,97 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import ApperIcon from "@/components/ApperIcon";
 import Card from "@/components/atoms/Card";
 import Badge from "@/components/atoms/Badge";
 import TrifectaOverview from "@/components/organisms/TrifectaOverview";
-
+import Loading from "@/components/ui/Loading";
+import Error from "@/components/ui/Error";
+import { getClientById } from "@/services/api/clientService";
 const Dashboard = () => {
-  const stats = [
-    {
-      label: "Tax Savings YTD",
-      value: "$47,250",
-      change: "+18.2%",
-      changeType: "positive",
-      icon: "DollarSign",
-      gradient: "from-green-500 to-green-600"
-    },
-    {
-      label: "Protected Assets",
-      value: "$1.2M",
-      change: "+5.1%",
-      changeType: "positive",
-      icon: "Shield",
-      gradient: "from-blue-500 to-blue-600"
-    },
-    {
-      label: "Portfolio Growth",
-      value: "$156K",
-      change: "+12.8%",
-      changeType: "positive",
-      icon: "TrendingUp",
-      gradient: "from-gold-500 to-gold-600"
-    },
-    {
-      label: "Active Strategies",
-      value: "7",
-      change: "+2 new",
-      changeType: "neutral",
-      icon: "Target",
-      gradient: "from-purple-500 to-purple-600"
+  const [clientData, setClientData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchClientData = async () => {
+      try {
+        setLoading(true);
+        // Using client ID 1 as default - in real app this would come from auth/context
+        const data = await getClientById(1);
+        setClientData(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchClientData();
+  }, []);
+
+  const formatCurrency = (amount) => {
+    if (amount >= 1000000) {
+      return `$${(amount / 1000000).toFixed(1)}M`;
     }
-  ];
+    if (amount >= 1000) {
+      return `$${(amount / 1000).toFixed(0)}K`;
+    }
+    return `$${amount.toLocaleString()}`;
+  };
+
+  const formatPercentage = (value) => {
+    return `${value >= 0 ? '+' : ''}${value.toFixed(1)}%`;
+  };
+
+  const getStats = () => {
+    if (!clientData?.financialMetrics) return [];
+    
+    const metrics = clientData.financialMetrics;
+    
+    return [
+      {
+        label: "Tax Savings YTD",
+        value: formatCurrency(metrics.taxSavingsYTD.currentYear),
+        change: formatPercentage(metrics.taxSavingsYTD.changePercent),
+        changeType: metrics.taxSavingsYTD.changePercent >= 0 ? "positive" : "negative",
+        icon: "DollarSign",
+        gradient: "from-green-500 to-green-600",
+        progress: Math.min((metrics.taxSavingsYTD.currentYear / metrics.taxSavingsYTD.targetYear) * 100, 100)
+      },
+      {
+        label: "Protected Assets",
+        value: formatCurrency(metrics.assetProtection.totalProtected),
+        change: `${metrics.assetProtection.coveragePercent}% coverage`,
+        changeType: metrics.assetProtection.coveragePercent >= 80 ? "positive" : "neutral",
+        icon: "Shield",
+        gradient: "from-blue-500 to-blue-600",
+        progress: metrics.assetProtection.coveragePercent
+      },
+      {
+        label: "Portfolio Value",
+        value: formatCurrency(metrics.portfolioValue.current),
+        change: formatPercentage(metrics.portfolioValue.growthPercent),
+        changeType: metrics.portfolioValue.growthPercent >= 0 ? "positive" : "negative",
+        icon: "TrendingUp",
+        gradient: "from-gold-500 to-gold-600",
+        progress: Math.min((metrics.portfolioValue.current / metrics.portfolioValue.target) * 100, 100)
+      },
+      {
+        label: "Wealth Goal Progress",
+        value: `${metrics.wealthGoals.overallProgress}%`,
+        change: `${metrics.wealthGoals.completedMilestones}/${metrics.wealthGoals.totalMilestones} milestones`,
+        changeType: metrics.wealthGoals.overallProgress >= 75 ? "positive" : "neutral",
+        icon: "Target",
+        gradient: "from-purple-500 to-purple-600",
+        progress: metrics.wealthGoals.overallProgress
+      }
+    ];
+  };
+
+  if (loading) return <Loading />;
+  if (error) return <Error message={error} onRetry={() => window.location.reload()} />;
+
+  const stats = getStats();
 
   const recentActivity = [
     {
@@ -120,7 +172,7 @@ const Dashboard = () => {
       </motion.div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {stats.map((stat, index) => (
           <motion.div
             key={stat.label}
@@ -128,21 +180,43 @@ const Dashboard = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
           >
-            <Card className="p-6 h-full">
-              <div className="flex items-start justify-between mb-4">
-                <div className={`w-12 h-12 bg-gradient-to-br ${stat.gradient} rounded-xl flex items-center justify-center`}>
-                  <ApperIcon name={stat.icon} className="h-6 w-6 text-white" />
+            <Card className="p-6 h-full relative overflow-hidden">
+              {/* Progress indicator background */}
+              <div 
+                className="absolute inset-0 bg-gradient-to-r from-gray-50 to-transparent opacity-30"
+                style={{ width: `${stat.progress}%` }}
+              />
+              
+              <div className="relative z-10">
+                <div className="flex items-start justify-between mb-4">
+                  <div className={`w-12 h-12 bg-gradient-to-br ${stat.gradient} rounded-xl flex items-center justify-center shadow-lg`}>
+                    <ApperIcon name={stat.icon} className="h-6 w-6 text-white" />
+                  </div>
+                  <Badge 
+                    variant={stat.changeType === "positive" ? "success" : stat.changeType === "negative" ? "destructive" : "default"}
+                    size="sm"
+                  >
+                    {stat.change}
+                  </Badge>
                 </div>
-                <Badge 
-                  variant={stat.changeType === "positive" ? "success" : "default"}
-                  size="sm"
-                >
-                  {stat.change}
-                </Badge>
-              </div>
-              <div>
-                <p className="text-2xl font-bold text-navy-900 mb-1">{stat.value}</p>
-                <p className="text-sm text-gray-600 font-medium">{stat.label}</p>
+                
+                <div className="mb-3">
+                  <p className="text-2xl font-bold text-navy-900 mb-1">{stat.value}</p>
+                  <p className="text-sm text-gray-600 font-medium">{stat.label}</p>
+                </div>
+
+                {/* Progress bar */}
+                <div className="w-full bg-gray-200 rounded-full h-2">
+                  <motion.div 
+                    className={`h-2 bg-gradient-to-r ${stat.gradient} rounded-full`}
+                    initial={{ width: 0 }}
+                    animate={{ width: `${stat.progress}%` }}
+                    transition={{ duration: 1, delay: index * 0.2 }}
+                  />
+                </div>
+                <p className="text-xs text-gray-500 mt-1 text-right">
+                  {stat.progress.toFixed(0)}%
+                </p>
               </div>
             </Card>
           </motion.div>
