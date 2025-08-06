@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { toast } from "react-toastify";
 import ApperIcon from "@/components/ApperIcon";
 import Card from "@/components/atoms/Card";
 import Badge from "@/components/atoms/Badge";
-
+import Input from "@/components/atoms/Input";
+import Button from "@/components/atoms/Button";
 const TaxPlanning = () => {
   const taxStrategies = [
     {
@@ -60,6 +62,17 @@ const TaxPlanning = () => {
       amount: "$6,500"
     }
   ];
+// Tax Calculator State
+  const [showCalculator, setShowCalculator] = useState(false);
+  const [calculatorInputs, setCalculatorInputs] = useState({
+    businessIncome: 150000,
+    businessExpenses: 30000,
+    currentEntity: 'sole-proprietorship',
+    rentalIncome: 0,
+    rentalExpenses: 0,
+    currentTaxRate: 0.24,
+    filingStatus: 'married-joint'
+  });
 
   const getStatusVariant = (status) => {
     switch (status) {
@@ -72,6 +85,59 @@ const TaxPlanning = () => {
       default:
         return "default";
     }
+  };
+
+  // Calculator Functions
+  const calculateCurrentTax = () => {
+    const businessProfit = calculatorInputs.businessIncome - calculatorInputs.businessExpenses;
+    const rentalProfit = Math.max(0, calculatorInputs.rentalIncome - calculatorInputs.rentalExpenses);
+    const totalIncome = businessProfit + rentalProfit;
+    
+    let selfEmploymentTax = 0;
+    if (calculatorInputs.currentEntity === 'sole-proprietorship') {
+      selfEmploymentTax = businessProfit * 0.1413; // 14.13% SE tax
+    }
+    
+    const incomeTax = totalIncome * calculatorInputs.currentTaxRate;
+    return incomeTax + selfEmploymentTax;
+  };
+
+  const calculateOptimizedTax = () => {
+    const businessProfit = calculatorInputs.businessIncome - calculatorInputs.businessExpenses;
+    const rentalProfit = Math.max(0, calculatorInputs.rentalIncome - calculatorInputs.rentalExpenses);
+    
+    // S-Corp optimization
+    const reasonableWage = Math.min(businessProfit * 0.6, 70000);
+    const distributions = Math.max(0, businessProfit - reasonableWage);
+    
+    // SE tax only on wages
+    const selfEmploymentTax = reasonableWage * 0.1413;
+    
+    // Income tax on all business profit + rental
+    const incomeTax = (businessProfit + rentalProfit) * calculatorInputs.currentTaxRate;
+    
+    // Additional deductions through Trifecta strategies
+    const additionalDeductions = 15000; // Conservative estimate
+    const deductionSavings = additionalDeductions * calculatorInputs.currentTaxRate;
+    
+    return Math.max(0, incomeTax + selfEmploymentTax - deductionSavings);
+  };
+
+  const handleCalculatorSubmit = () => {
+    const currentTax = calculateCurrentTax();
+    const optimizedTax = calculateOptimizedTax();
+    const savings = currentTax - optimizedTax;
+    
+    toast.success(`Potential annual savings: $${savings.toLocaleString()}! Schedule a consultation to learn more.`, {
+      autoClose: 5000
+    });
+  };
+
+  const updateCalculatorInput = (field, value) => {
+    setCalculatorInputs(prev => ({
+      ...prev,
+      [field]: value
+    }));
   };
 
   const getComplexityColor = (complexity) => {
@@ -267,29 +333,233 @@ const TaxPlanning = () => {
                 </div>
               </div>
             </Card>
-          </motion.div>
+</motion.div>
 
-          {/* Quick Tools */}
+          {/* Interactive Tax Calculator */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.5 }}
           >
             <Card className="p-6">
-              <h3 className="text-lg font-bold text-navy-900 mb-4">Tax Tools</h3>
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-lg font-bold text-navy-900">Trifecta Tax Savings Calculator</h3>
+                <Button
+                  onClick={() => setShowCalculator(!showCalculator)}
+                  className="px-4 py-2"
+                >
+                  <ApperIcon name={showCalculator ? "ChevronUp" : "Calculator"} className="h-4 w-4 mr-2" />
+                  {showCalculator ? "Hide" : "Calculate"}
+                </Button>
+              </div>
+
+              {showCalculator && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  transition={{ duration: 0.3 }}
+                  className="space-y-6"
+                >
+                  {/* Business Income Section */}
+                  <div className="bg-blue-50 p-4 rounded-lg">
+                    <h4 className="font-semibold text-navy-900 mb-3 flex items-center">
+                      <ApperIcon name="Building2" className="h-4 w-4 mr-2 text-blue-600" />
+                      Business Information
+                    </h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-medium text-navy-700 mb-2">
+                          Annual Business Income
+                        </label>
+                        <Input
+                          type="number"
+                          value={calculatorInputs.businessIncome}
+                          onChange={(e) => updateCalculatorInput('businessIncome', parseFloat(e.target.value) || 0)}
+                          placeholder="150000"
+                          className="text-right"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-navy-700 mb-2">
+                          Business Expenses
+                        </label>
+                        <Input
+                          type="number"
+                          value={calculatorInputs.businessExpenses}
+                          onChange={(e) => updateCalculatorInput('businessExpenses', parseFloat(e.target.value) || 0)}
+                          placeholder="30000"
+                          className="text-right"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-navy-700 mb-2">
+                          Current Entity Type
+                        </label>
+                        <select
+                          value={calculatorInputs.currentEntity}
+                          onChange={(e) => updateCalculatorInput('currentEntity', e.target.value)}
+                          className="w-full px-4 py-2.5 rounded-lg border-2 border-gray-200 bg-white text-navy-900 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        >
+                          <option value="sole-proprietorship">Sole Proprietorship</option>
+                          <option value="llc">LLC</option>
+                          <option value="s-corp">S-Corporation</option>
+                          <option value="c-corp">C-Corporation</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Rental Income Section */}
+                  <div className="bg-green-50 p-4 rounded-lg">
+                    <h4 className="font-semibold text-navy-900 mb-3 flex items-center">
+                      <ApperIcon name="Home" className="h-4 w-4 mr-2 text-green-600" />
+                      Rental Property Income
+                    </h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-medium text-navy-700 mb-2">
+                          Annual Rental Income
+                        </label>
+                        <Input
+                          type="number"
+                          value={calculatorInputs.rentalIncome}
+                          onChange={(e) => updateCalculatorInput('rentalIncome', parseFloat(e.target.value) || 0)}
+                          placeholder="0"
+                          className="text-right"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-navy-700 mb-2">
+                          Rental Expenses
+                        </label>
+                        <Input
+                          type="number"
+                          value={calculatorInputs.rentalExpenses}
+                          onChange={(e) => updateCalculatorInput('rentalExpenses', parseFloat(e.target.value) || 0)}
+                          placeholder="0"
+                          className="text-right"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Current Tax Situation */}
+                  <div className="bg-gold-50 p-4 rounded-lg">
+                    <h4 className="font-semibold text-navy-900 mb-3 flex items-center">
+                      <ApperIcon name="FileText" className="h-4 w-4 mr-2 text-gold-600" />
+                      Current Tax Situation
+                    </h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-medium text-navy-700 mb-2">
+                          Current Tax Rate
+                        </label>
+                        <select
+                          value={calculatorInputs.currentTaxRate}
+                          onChange={(e) => updateCalculatorInput('currentTaxRate', parseFloat(e.target.value))}
+                          className="w-full px-4 py-2.5 rounded-lg border-2 border-gray-200 bg-white text-navy-900 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        >
+                          <option value={0.12}>12% - $22,000 - $89,450</option>
+                          <option value={0.22}>22% - $89,450 - $190,750</option>
+                          <option value={0.24}>24% - $190,750 - $364,200</option>
+                          <option value={0.32}>32% - $364,200 - $462,500</option>
+                          <option value={0.35}>35% - $462,500 - $693,750</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-navy-700 mb-2">
+                          Filing Status
+                        </label>
+                        <select
+                          value={calculatorInputs.filingStatus}
+                          onChange={(e) => updateCalculatorInput('filingStatus', e.target.value)}
+                          className="w-full px-4 py-2.5 rounded-lg border-2 border-gray-200 bg-white text-navy-900 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        >
+                          <option value="single">Single</option>
+                          <option value="married-joint">Married Filing Jointly</option>
+                          <option value="married-separate">Married Filing Separately</option>
+                          <option value="head-of-household">Head of Household</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Results Section */}
+                  <div className="bg-navy-50 p-6 rounded-lg">
+                    <h4 className="font-semibold text-navy-900 mb-4 flex items-center">
+                      <ApperIcon name="TrendingUp" className="h-4 w-4 mr-2 text-navy-600" />
+                      Projected Tax Savings
+                    </h4>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                      <div className="text-center p-4 bg-white rounded-lg">
+                        <p className="text-sm text-navy-600 mb-1">Current Annual Tax</p>
+                        <p className="text-2xl font-bold text-red-600">
+                          ${calculateCurrentTax().toLocaleString()}
+                        </p>
+                      </div>
+                      <div className="text-center p-4 bg-white rounded-lg">
+                        <p className="text-sm text-navy-600 mb-1">Optimized Tax</p>
+                        <p className="text-2xl font-bold text-green-600">
+                          ${calculateOptimizedTax().toLocaleString()}
+                        </p>
+                      </div>
+                      <div className="text-center p-4 bg-gradient-to-r from-blue-500 to-green-500 text-white rounded-lg">
+                        <p className="text-sm mb-1">Annual Savings</p>
+                        <p className="text-2xl font-bold">
+                          ${(calculateCurrentTax() - calculateOptimizedTax()).toLocaleString()}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="bg-white p-4 rounded-lg mb-4">
+                      <h5 className="font-semibold text-navy-900 mb-2">Optimization Strategies Include:</h5>
+                      <ul className="space-y-1 text-sm text-navy-700">
+                        <li className="flex items-center">
+                          <ApperIcon name="Check" className="h-3 w-3 mr-2 text-green-600" />
+                          S-Corporation election to reduce self-employment tax
+                        </li>
+                        <li className="flex items-center">
+                          <ApperIcon name="Check" className="h-3 w-3 mr-2 text-green-600" />
+                          Strategic business expense optimization
+                        </li>
+                        <li className="flex items-center">
+                          <ApperIcon name="Check" className="h-3 w-3 mr-2 text-green-600" />
+                          Rental property tax benefit maximization
+                        </li>
+                        <li className="flex items-center">
+                          <ApperIcon name="Check" className="h-3 w-3 mr-2 text-green-600" />
+                          Additional deduction strategies
+                        </li>
+                      </ul>
+                    </div>
+
+                    <Button
+                      onClick={handleCalculatorSubmit}
+                      className="w-full bg-gradient-to-r from-blue-600 to-green-600 hover:from-blue-700 hover:to-green-700 text-white py-3"
+                    >
+                      <ApperIcon name="Calendar" className="h-4 w-4 mr-2" />
+                      Schedule Consultation to Implement These Savings
+                    </Button>
+                  </div>
+                </motion.div>
+              )}
+            </Card>
+          </motion.div>
+
+          {/* Other Tax Tools */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+          >
+            <Card className="p-6">
+              <h3 className="text-lg font-bold text-navy-900 mb-4">Additional Tax Tools</h3>
               <div className="space-y-3">
-                <button className="w-full flex items-center gap-3 p-3 text-left rounded-lg hover:bg-gray-50 transition-colors group">
-                  <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
-                    <ApperIcon name="Calculator" className="h-4 w-4 text-blue-600" />
-                  </div>
-                  <div className="flex-1">
-                    <p className="text-sm font-semibold text-navy-900 group-hover:text-blue-600">
-                      Tax Calculator
-                    </p>
-                  </div>
-                </button>
-                
-                <button className="w-full flex items-center gap-3 p-3 text-left rounded-lg hover:bg-gray-50 transition-colors group">
+                <button 
+                  onClick={() => toast.info("Deduction tracker coming soon!")}
+                  className="w-full flex items-center gap-3 p-3 text-left rounded-lg hover:bg-gray-50 transition-colors group"
+                >
                   <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
                     <ApperIcon name="FileSpreadsheet" className="h-4 w-4 text-green-600" />
                   </div>
@@ -300,7 +570,10 @@ const TaxPlanning = () => {
                   </div>
                 </button>
                 
-                <button className="w-full flex items-center gap-3 p-3 text-left rounded-lg hover:bg-gray-50 transition-colors group">
+                <button 
+                  onClick={() => toast.info("Tax projections tool coming soon!")}
+                  className="w-full flex items-center gap-3 p-3 text-left rounded-lg hover:bg-gray-50 transition-colors group"
+                >
                   <div className="w-8 h-8 bg-gold-100 rounded-lg flex items-center justify-center">
                     <ApperIcon name="PieChart" className="h-4 w-4 text-gold-600" />
                   </div>
