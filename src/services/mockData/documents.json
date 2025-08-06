@@ -1,0 +1,110 @@
+[
+  {
+    "Id": 1,
+    "name": "2024 Tax Strategy Plan.pdf",
+    "type": "pdf",
+    "uploadDate": "2024-12-01T08:30:00.000Z",
+    "fileSize": 2457600,
+    "category": "Tax Planning",
+    "downloadUrl": "/documents/tax-strategy-2024.pdf"
+  },
+  {
+    "Id": 2,
+    "name": "Q3 2024 Business Expenses.xlsx",
+    "type": "xlsx",
+    "uploadDate": "2024-11-28T14:15:00.000Z",
+    "fileSize": 1048576,
+    "category": "Business Records",
+    "downloadUrl": "/documents/q3-expenses.xlsx"
+  },
+  {
+    "Id": 3,
+    "name": "Asset Protection Proposal.pdf",
+    "type": "pdf",
+    "uploadDate": "2024-11-25T10:45:00.000Z",
+    "fileSize": 3221225,
+    "category": "Asset Protection",
+    "downloadUrl": "/documents/asset-protection.pdf"
+  },
+  {
+    "Id": 4,
+    "name": "Investment Portfolio Review.pdf",
+    "type": "pdf",
+    "uploadDate": "2024-11-20T16:20:00.000Z",
+    "fileSize": 1887436,
+    "category": "Wealth Building",
+    "downloadUrl": "/documents/portfolio-review.pdf"
+  },
+  {
+    "Id": 5,
+    "name": "LLC Operating Agreement.docx",
+    "type": "docx",
+    "uploadDate": "2024-11-18T09:30:00.000Z",
+    "fileSize": 524288,
+    "category": "Legal Documents",
+    "downloadUrl": "/documents/llc-agreement.docx"
+  },
+  {
+    "Id": 6,
+    "name": "2023 Tax Return Summary.pdf",
+    "type": "pdf",
+    "uploadDate": "2024-11-15T11:00:00.000Z",
+    "fileSize": 1572864,
+    "category": "Tax Returns",
+    "downloadUrl": "/documents/2023-tax-return.pdf"
+  },
+  {
+    "Id": 7,
+    "name": "Retirement Planning Worksheet.xlsx",
+    "type": "xlsx",
+    "uploadDate": "2024-11-12T13:45:00.000Z",
+    "fileSize": 786432,
+    "category": "Retirement Planning",
+    "downloadUrl": "/documents/retirement-worksheet.xlsx"
+  },
+  {
+    "Id": 8,
+    "name": "Estate Planning Checklist.pdf",
+    "type": "pdf",
+    "uploadDate": "2024-11-08T15:30:00.000Z",
+    "fileSize": 917504,
+    "category": "Estate Planning",
+    "downloadUrl": "/documents/estate-checklist.pdf"
+  },
+  {
+    "Id": 9,
+    "name": "Business Entity Comparison.docx",
+    "type": "docx",
+    "uploadDate": "2024-11-05T12:15:00.000Z",
+    "fileSize": 655360,
+    "category": "Business Structure",
+    "downloadUrl": "/documents/entity-comparison.docx"
+  },
+  {
+    "Id": 10,
+    "name": "Investment Risk Assessment.pdf",
+    "type": "pdf",
+    "uploadDate": "2024-11-01T10:00:00.000Z",
+    "fileSize": 2097152,
+    "category": "Investment Analysis",
+    "downloadUrl": "/documents/risk-assessment.pdf"
+  },
+  {
+    "Id": 11,
+    "name": "Tax Deduction Tracker 2024.xlsx",
+    "type": "xlsx",
+    "uploadDate": "2024-10-28T14:20:00.000Z",
+    "fileSize": 943718,
+    "category": "Tax Planning",
+    "downloadUrl": "/documents/deduction-tracker.xlsx"
+  },
+  {
+    "Id": 12,
+    "name": "Trust Agreement Draft.pdf",
+    "type": "pdf",
+    "uploadDate": "2024-10-25T16:45:00.000Z",
+    "fileSize": 1310720,
+    "category": "Estate Planning",
+    "downloadUrl": "/documents/trust-agreement.pdf"
+  }
+]

@@ -1,0 +1,23 @@
+[
+  {
+    "Id": 1,
+    "name": "Foundation",
+    "description": "Tax optimization strategies and compliance management to minimize your tax burden legally and effectively.",
+    "icon": "Shield",
+    "status": "Active"
+  },
+  {
+    "Id": 2,
+    "name": "Operations", 
+    "description": "Asset protection and business structure optimization to safeguard your wealth from potential risks.",
+    "icon": "Settings",
+    "status": "In Progress"
+  },
+  {
+    "Id": 3,
+    "name": "Holdings",
+    "description": "Wealth building through strategic investments and portfolio management for long-term growth.",
+    "icon": "TrendingUp",
+    "status": "Planning"
+  }
+]
