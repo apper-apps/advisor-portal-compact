@@ -8,9 +8,10 @@ const Sidebar = ({ isOpen, onClose }) => {
 const navigation = [
     { name: "Dashboard", href: "/", icon: "LayoutDashboard" },
     { name: "Documents", href: "/documents", icon: "FileText" },
-    { name: "Foundation", href: "/foundation", icon: "Building2" },
+{ name: "Foundation", href: "/foundation", icon: "Building2" },
     { name: "Tax Planning", href: "/tax-planning", icon: "Calculator" },
     { name: "Wealth Building", href: "/wealth-building", icon: "TrendingUp" },
+    { name: "Operations", href: "/operations", icon: "Building" },
   ];
 
   // Desktop Sidebar - Static positioning

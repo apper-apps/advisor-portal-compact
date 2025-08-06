@@ -16,7 +16,7 @@ export const getClientById = async (id) => {
     throw new Error("Client not found");
   }
   
-  // Add foundation status for client
+// Add foundation status for client
   const foundationStatus = {
     overallProgress: id === 1 ? "75" : "25",
     trustCreated: id === 1 ? true : false,
@@ -24,8 +24,32 @@ export const getClientById = async (id) => {
     successorDesignated: id === 1 ? false : false,
     legacyFramework: id === 1 ? false : false
   };
+
+  // Add operations data for client
+  const operationsData = {
+    businessProfit: id === 1 ? 75000 : id === 2 ? 125000 : 35000,
+    currentEntityType: id === 1 ? "LLC" : id === 2 ? "S-Corp" : "Sole Proprietorship",
+    recommendedEntityType: "LLC taxed as S-Corp",
+    taxSavings: {
+      selfEmploymentTaxSavings: id === 1 ? 5738 : id === 2 ? 9563 : 0,
+      corporateTaxBenefits: id === 1 ? 3250 : id === 2 ? 5875 : 0,
+      totalAnnualSavings: id === 1 ? 8988 : id === 2 ? 15438 : 0
+    },
+    entityStructure: {
+      hasPayrollSetup: id === 1 ? true : id === 2 ? true : false,
+      reasonableSalary: id === 1 ? 45000 : id === 2 ? 65000 : 0,
+      distributionAmount: id === 1 ? 30000 : id === 2 ? 60000 : 0,
+      quarterlyFilings: id === 1 ? "Current" : id === 2 ? "Current" : "N/A"
+    },
+    complianceStatus: {
+      corporateResolutions: id === 1 ? true : false,
+      meetingMinutes: id === 1 ? true : false,
+      separateBankAccounts: id === 1 ? true : id === 2 ? true : false,
+      bookkeepingSeparation: id === 1 ? true : id === 2 ? true : false
+    }
+  };
   
-  return { ...client, foundationStatus };
+return { ...client, foundationStatus, operationsData };
 };
 
 export const createClient = async (clientData) => {

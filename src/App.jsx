@@ -8,6 +8,7 @@ import Documents from "@/components/pages/Documents";
 import Foundation from "@/components/pages/Foundation";
 import TaxPlanning from "@/components/pages/TaxPlanning";
 import WealthBuilding from "@/components/pages/WealthBuilding";
+import Operations from "@/components/pages/Operations";
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -32,9 +33,10 @@ function App() {
 <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/documents" element={<Documents />} />
-              <Route path="/foundation" element={<Foundation />} />
+<Route path="/foundation" element={<Foundation />} />
               <Route path="/tax-planning" element={<TaxPlanning />} />
               <Route path="/wealth-building" element={<WealthBuilding />} />
+              <Route path="/operations" element={<Operations />} />
             </Routes>
           </main>
         </div>
