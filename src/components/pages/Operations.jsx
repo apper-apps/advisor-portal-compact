@@ -81,17 +81,26 @@ export default function Operations() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
+<div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">Operations Center</h1>
           <p className="mt-1 text-sm text-gray-600">
             Business entity optimization and tax strategy management
           </p>
         </div>
-        <Button className="bg-navy-600 hover:bg-navy-700">
-          <ApperIcon name="Download" size={16} className="mr-2" />
-          Export Report
-        </Button>
+        <div className="flex gap-3">
+          <Button 
+            onClick={() => window.location.href = '/appointments'} 
+            className="bg-blue-600 hover:bg-blue-700"
+          >
+            <ApperIcon name="Calendar" size={16} className="mr-2" />
+            Schedule Consultation
+          </Button>
+          <Button className="bg-navy-600 hover:bg-navy-700">
+            <ApperIcon name="Download" size={16} className="mr-2" />
+            Export Report
+          </Button>
+        </div>
       </div>
 
       {/* Current Entity Status */}

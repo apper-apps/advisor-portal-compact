@@ -9,6 +9,7 @@ import Foundation from "@/components/pages/Foundation";
 import TaxPlanning from "@/components/pages/TaxPlanning";
 import WealthBuilding from "@/components/pages/WealthBuilding";
 import Operations from "@/components/pages/Operations";
+import Appointments from "@/components/pages/Appointments";
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -29,7 +30,7 @@ function App() {
         <div className="lg:pl-64">
           <Header onMenuToggle={handleMenuToggle} clientName="John Smith" />
           
-          <main className="p-6 lg:p-8">
+<main className="p-6 lg:p-8">
 <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/documents" element={<Documents />} />
@@ -37,6 +38,7 @@ function App() {
               <Route path="/tax-planning" element={<TaxPlanning />} />
               <Route path="/wealth-building" element={<WealthBuilding />} />
               <Route path="/operations" element={<Operations />} />
+              <Route path="/appointments" element={<Appointments />} />
             </Routes>
           </main>
         </div>
