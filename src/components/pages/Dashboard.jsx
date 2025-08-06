@@ -1,12 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { getActionItemsByClient } from "@/services/api/actionItemService";
+import { getClientById } from "@/services/api/clientService";
 import ApperIcon from "@/components/ApperIcon";
-import Card from "@/components/atoms/Card";
-import Badge from "@/components/atoms/Badge";
 import TrifectaOverview from "@/components/organisms/TrifectaOverview";
+import ActionItemsWidget from "@/components/organisms/ActionItemsWidget";
 import Loading from "@/components/ui/Loading";
 import Error from "@/components/ui/Error";
-import { getClientById } from "@/services/api/clientService";
+import Operations from "@/components/pages/Operations";
+import Documents from "@/components/pages/Documents";
+import Foundation from "@/components/pages/Foundation";
+import Badge from "@/components/atoms/Badge";
+import Button from "@/components/atoms/Button";
+import Card from "@/components/atoms/Card";
 const Dashboard = () => {
   const [clientData, setClientData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -224,18 +230,28 @@ const Dashboard = () => {
       </div>
 
       {/* Main Content Grid */}
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
+<div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
         {/* Trifecta Overview */}
         <div className="xl:col-span-2">
           <TrifectaOverview />
         </div>
 
-        {/* Recent Activity */}
+        {/* Right Sidebar */}
         <div className="space-y-6">
+          {/* Action Items Widget */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
+          >
+            <ActionItemsWidget />
+          </motion.div>
+
+          {/* Recent Activity */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
           >
             <Card className="p-6">
               <div className="flex items-center justify-between mb-6">
@@ -280,7 +296,7 @@ const Dashboard = () => {
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
           >
             <Card className="p-6">
               <h3 className="text-lg font-bold text-navy-900 mb-4">Quick Actions</h3>
@@ -311,7 +327,7 @@ const Dashboard = () => {
                   <ApperIcon name="ChevronRight" className="h-4 w-4 text-gray-400 group-hover:text-green-600" />
                 </button>
                 
-<button className="w-full flex items-center gap-3 p-3 text-left rounded-lg hover:bg-gray-50 transition-colors group">
+                <button className="w-full flex items-center gap-3 p-3 text-left rounded-lg hover:bg-gray-50 transition-colors group">
                   <div className="w-8 h-8 bg-navy-100 rounded-lg flex items-center justify-center">
                     <ApperIcon name="Building2" className="h-4 w-4 text-navy-600" />
                   </div>
@@ -341,6 +357,9 @@ const Dashboard = () => {
           </motion.div>
         </div>
       </div>
+
+      {/* Action Items Widget Component */}
+      <ActionItemsWidget />
     </div>
   );
 };

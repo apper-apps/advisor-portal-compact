@@ -99,9 +99,18 @@ export const getClientById = async (id) => {
         { name: "Wealth Optimization", completed: false }
       ]
     }
+};
+
+  // Action Items summary
+  const actionItems = {
+    total: 6,
+    pending: 3,
+    overdue: 1,
+    completed: 1,
+    inProgress: 1
   };
-  
-  return { ...client, foundationStatus, operationsData, financialMetrics };
+
+  return { ...client, foundationStatus, operationsData, financialMetrics, actionItems };
 };
 
 export const createClient = async (clientData) => {

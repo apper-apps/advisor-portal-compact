@@ -90,6 +90,13 @@ export default function Operations() {
         </div>
         <div className="flex gap-3">
           <Button 
+            onClick={() => window.location.href = '/action-items'} 
+            className="bg-green-600 hover:bg-green-700"
+          >
+            <ApperIcon name="CheckSquare" size={16} className="mr-2" />
+            Action Items
+          </Button>
+          <Button 
             onClick={() => window.location.href = '/appointments'} 
             className="bg-blue-600 hover:bg-blue-700"
           >
