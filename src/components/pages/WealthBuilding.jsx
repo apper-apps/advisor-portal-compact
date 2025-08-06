@@ -49,7 +49,7 @@ const WealthBuilding = () => {
     { period: "3 Years", return: "+8.9%", benchmark: "+7.2%", status: "outperforming" }
   ];
 
-  const upcomingActions = [
+const upcomingActions = [
     {
       action: "Portfolio Rebalancing",
       description: "Quarterly rebalancing scheduled",
@@ -72,6 +72,101 @@ const WealthBuilding = () => {
       icon: "DollarSign"
     }
   ];
+
+  // Holdings data
+  const holdingsData = {
+    rentalProperties: [
+      {
+        Id: 1,
+        address: "123 Maple Street, Austin, TX",
+        purchaseDate: "2020-03-15",
+        purchasePrice: 285000,
+        currentValue: 342000,
+        monthlyRent: 2400,
+        expenses: 1850,
+        netIncome: 550,
+        depreciationRate: 3.636,
+        annualDepreciation: 10364,
+        occupancyRate: 95,
+        status: "Occupied"
+      },
+      {
+        Id: 2,
+        address: "456 Oak Avenue, Dallas, TX",
+        purchaseDate: "2021-08-22",
+        purchasePrice: 195000,
+        currentValue: 218000,
+        monthlyRent: 1650,
+        expenses: 1200,
+        netIncome: 450,
+        depreciationRate: 3.636,
+        annualDepreciation: 7091,
+        occupancyRate: 100,
+        status: "Occupied"
+      }
+    ],
+    retirementAccounts: [
+      {
+        Id: 1,
+        accountType: "Self-Directed IRA",
+        provider: "Quest Trust Company",
+        balance: 245000,
+        contributionLimit: 7500,
+        contributedThisYear: 7500,
+        growth: 12.8,
+        lastContribution: "2024-11-15",
+        investments: "Real Estate, Private Lending",
+        status: "Active"
+      },
+      {
+        Id: 2,
+        accountType: "Solo 401(k)",
+        provider: "Fidelity",
+        balance: 89000,
+        contributionLimit: 70000,
+        contributedThisYear: 28000,
+        growth: 8.4,
+        lastContribution: "2024-12-01",
+        investments: "Index Funds, Individual Stocks",
+        status: "Active"
+      }
+    ],
+    passiveIncomeStreams: [
+      {
+        Id: 1,
+        source: "Dividend Portfolio",
+        type: "Stock Dividends",
+        monthlyIncome: 1250,
+        annualYield: 4.2,
+        totalInvested: 357000,
+        growth: 6.8,
+        nextPayment: "2025-01-15",
+        status: "Active"
+      },
+      {
+        Id: 2,
+        source: "REIT Investments",
+        type: "Real Estate Investment Trust",
+        monthlyIncome: 890,
+        annualYield: 7.1,
+        totalInvested: 150000,
+        growth: 3.2,
+        nextPayment: "2025-01-10",
+        status: "Active"
+      },
+      {
+        Id: 3,
+        source: "Private Lending",
+        type: "Peer-to-Peer Lending",
+        monthlyIncome: 425,
+        annualYield: 9.8,
+        totalInvested: 52000,
+        growth: 9.1,
+        nextPayment: "2025-01-05",
+        status: "Active"
+      }
+    ]
+  };
 
   const getStatusColor = (status) => {
     switch (status.toLowerCase()) {
@@ -168,7 +263,7 @@ const WealthBuilding = () => {
       </div>
 
       {/* Main Content */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Left Column - Portfolio & Goals */}
         <div className="lg:col-span-2 space-y-8">
           {/* Portfolio Allocation */}
@@ -250,6 +345,282 @@ const WealthBuilding = () => {
                   </Card>
                 </motion.div>
               ))}
+            </div>
+          </div>
+
+          {/* Holdings Section */}
+          <div>
+            <h2 className="text-2xl font-bold text-navy-900 mb-6">Investment Holdings</h2>
+            
+            {/* Rental Properties */}
+            <div className="mb-8">
+              <h3 className="text-xl font-bold text-navy-900 mb-4">Rental Properties</h3>
+              <div className="space-y-4">
+                {holdingsData.rentalProperties.map((property, index) => (
+                  <motion.div
+                    key={property.Id}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                  >
+                    <Card className="p-6 hover:shadow-lg transition-shadow duration-300">
+                      <div className="flex items-start justify-between mb-4">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 bg-gradient-to-br from-green-100 to-green-200 rounded-lg flex items-center justify-center">
+                            <ApperIcon name="Home" className="h-5 w-5 text-green-600" />
+                          </div>
+                          <div>
+                            <h4 className="text-lg font-bold text-navy-900">{property.address}</h4>
+                            <p className="text-sm text-gray-600">Purchased: {new Date(property.purchaseDate).toLocaleDateString()}</p>
+                          </div>
+                        </div>
+                        <Badge variant={property.status === "Occupied" ? "success" : "warning"} size="sm">
+                          {property.status}
+                        </Badge>
+                      </div>
+
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+                        <div>
+                          <p className="text-sm text-gray-600">Purchase Price</p>
+                          <p className="font-bold text-navy-900">${property.purchasePrice.toLocaleString()}</p>
+                        </div>
+                        <div>
+                          <p className="text-sm text-gray-600">Current Value</p>
+                          <p className="font-bold text-navy-900">${property.currentValue.toLocaleString()}</p>
+                        </div>
+                        <div>
+                          <p className="text-sm text-gray-600">Monthly Rent</p>
+                          <p className="font-bold text-green-600">${property.monthlyRent.toLocaleString()}</p>
+                        </div>
+                        <div>
+                          <p className="text-sm text-gray-600">Net Income</p>
+                          <p className="font-bold text-green-600">${property.netIncome.toLocaleString()}/mo</p>
+                        </div>
+                      </div>
+
+                      <div className="bg-gray-50 rounded-lg p-4">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                          <div>
+                            <p className="text-sm text-gray-600">Annual Depreciation</p>
+                            <p className="font-bold text-navy-900">${property.annualDepreciation.toLocaleString()}</p>
+                          </div>
+                          <div>
+                            <p className="text-sm text-gray-600">Occupancy Rate</p>
+                            <div className="flex items-center gap-2">
+                              <div className="w-full bg-gray-200 rounded-full h-2">
+                                <div 
+                                  className="h-2 rounded-full bg-green-500"
+                                  style={{ width: `${property.occupancyRate}%` }}
+                                />
+                              </div>
+                              <span className="text-sm font-bold text-navy-900">{property.occupancyRate}%</span>
+                            </div>
+                          </div>
+                          <div>
+                            <p className="text-sm text-gray-600">Equity Gain</p>
+                            <p className="font-bold text-blue-600">
+                              ${(property.currentValue - property.purchasePrice).toLocaleString()}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </Card>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
+            {/* Self-Directed Retirement Accounts */}
+            <div className="mb-8">
+              <h3 className="text-xl font-bold text-navy-900 mb-4">Self-Directed Retirement Accounts</h3>
+              <div className="space-y-4">
+                {holdingsData.retirementAccounts.map((account, index) => (
+                  <motion.div
+                    key={account.Id}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                  >
+                    <Card className="p-6 hover:shadow-lg transition-shadow duration-300">
+                      <div className="flex items-start justify-between mb-4">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg flex items-center justify-center">
+                            <ApperIcon name="PiggyBank" className="h-5 w-5 text-blue-600" />
+                          </div>
+                          <div>
+                            <h4 className="text-lg font-bold text-navy-900">{account.accountType}</h4>
+                            <p className="text-sm text-gray-600">{account.provider}</p>
+                          </div>
+                        </div>
+                        <Badge variant="success" size="sm">{account.status}</Badge>
+                      </div>
+
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+                        <div>
+                          <p className="text-sm text-gray-600">Balance</p>
+                          <p className="font-bold text-navy-900">${account.balance.toLocaleString()}</p>
+                        </div>
+                        <div>
+                          <p className="text-sm text-gray-600">Annual Growth</p>
+                          <p className="font-bold text-green-600">{account.growth}%</p>
+                        </div>
+                        <div>
+                          <p className="text-sm text-gray-600">Contribution Limit</p>
+                          <p className="font-bold text-navy-900">${account.contributionLimit.toLocaleString()}</p>
+                        </div>
+                        <div>
+                          <p className="text-sm text-gray-600">Contributed YTD</p>
+                          <p className="font-bold text-blue-600">${account.contributedThisYear.toLocaleString()}</p>
+                        </div>
+                      </div>
+
+                      <div className="bg-gray-50 rounded-lg p-4">
+                        <div className="mb-3">
+                          <p className="text-sm text-gray-600 mb-2">Contribution Progress</p>
+                          <div className="w-full bg-gray-200 rounded-full h-3">
+                            <motion.div
+                              className="h-3 rounded-full bg-gradient-to-r from-blue-500 to-blue-600"
+                              initial={{ width: 0 }}
+                              animate={{ width: `${(account.contributedThisYear / account.contributionLimit) * 100}%` }}
+                              transition={{ duration: 1, delay: index * 0.3 }}
+                            />
+                          </div>
+                          <div className="flex justify-between text-xs text-gray-600 mt-1">
+                            <span>${account.contributedThisYear.toLocaleString()}</span>
+                            <span>${account.contributionLimit.toLocaleString()}</span>
+                          </div>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div>
+                            <p className="text-sm text-gray-600">Investments</p>
+                            <p className="font-semibold text-navy-900">{account.investments}</p>
+                          </div>
+                          <div>
+                            <p className="text-sm text-gray-600">Last Contribution</p>
+                            <p className="font-semibold text-navy-900">{new Date(account.lastContribution).toLocaleDateString()}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </Card>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
+            {/* Passive Income Streams */}
+            <div className="mb-8">
+              <h3 className="text-xl font-bold text-navy-900 mb-4">Passive Income Streams</h3>
+              <div className="space-y-4">
+                {holdingsData.passiveIncomeStreams.map((stream, index) => (
+                  <motion.div
+                    key={stream.Id}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                  >
+                    <Card className="p-6 hover:shadow-lg transition-shadow duration-300">
+                      <div className="flex items-start justify-between mb-4">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 bg-gradient-to-br from-purple-100 to-purple-200 rounded-lg flex items-center justify-center">
+                            <ApperIcon name="TrendingUp" className="h-5 w-5 text-purple-600" />
+                          </div>
+                          <div>
+                            <h4 className="text-lg font-bold text-navy-900">{stream.source}</h4>
+                            <p className="text-sm text-gray-600">{stream.type}</p>
+                          </div>
+                        </div>
+                        <Badge variant="success" size="sm">{stream.status}</Badge>
+                      </div>
+
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+                        <div>
+                          <p className="text-sm text-gray-600">Monthly Income</p>
+                          <p className="font-bold text-green-600">${stream.monthlyIncome.toLocaleString()}</p>
+                        </div>
+                        <div>
+                          <p className="text-sm text-gray-600">Annual Yield</p>
+                          <p className="font-bold text-navy-900">{stream.annualYield}%</p>
+                        </div>
+                        <div>
+                          <p className="text-sm text-gray-600">Total Invested</p>
+                          <p className="font-bold text-navy-900">${stream.totalInvested.toLocaleString()}</p>
+                        </div>
+                        <div>
+                          <p className="text-sm text-gray-600">YTD Growth</p>
+                          <p className="font-bold text-blue-600">{stream.growth}%</p>
+                        </div>
+                      </div>
+
+                      <div className="bg-gray-50 rounded-lg p-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div>
+                            <p className="text-sm text-gray-600">Next Payment</p>
+                            <p className="font-semibold text-navy-900">{new Date(stream.nextPayment).toLocaleDateString()}</p>
+                          </div>
+                          <div>
+                            <p className="text-sm text-gray-600">Annual Income</p>
+                            <p className="font-bold text-green-600">${(stream.monthlyIncome * 12).toLocaleString()}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </Card>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
+            {/* Investment Performance Summary */}
+            <div>
+              <h3 className="text-xl font-bold text-navy-900 mb-4">Performance Summary</h3>
+              <Card className="p-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                  <div className="text-center">
+                    <div className="w-12 h-12 bg-gradient-to-br from-green-100 to-green-200 rounded-lg flex items-center justify-center mx-auto mb-2">
+                      <ApperIcon name="DollarSign" className="h-6 w-6 text-green-600" />
+                    </div>
+                    <p className="text-sm text-gray-600">Total Holdings Value</p>
+                    <p className="text-2xl font-bold text-navy-900">
+                      ${(
+                        holdingsData.rentalProperties.reduce((sum, p) => sum + p.currentValue, 0) +
+                        holdingsData.retirementAccounts.reduce((sum, a) => sum + a.balance, 0) +
+                        holdingsData.passiveIncomeStreams.reduce((sum, s) => sum + s.totalInvested, 0)
+                      ).toLocaleString()}
+                    </p>
+                  </div>
+                  <div className="text-center">
+                    <div className="w-12 h-12 bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg flex items-center justify-center mx-auto mb-2">
+                      <ApperIcon name="TrendingUp" className="h-6 w-6 text-blue-600" />
+                    </div>
+                    <p className="text-sm text-gray-600">Monthly Passive Income</p>
+                    <p className="text-2xl font-bold text-green-600">
+                      ${(
+                        holdingsData.rentalProperties.reduce((sum, p) => sum + p.netIncome, 0) +
+                        holdingsData.passiveIncomeStreams.reduce((sum, s) => sum + s.monthlyIncome, 0)
+                      ).toLocaleString()}
+                    </p>
+                  </div>
+                  <div className="text-center">
+                    <div className="w-12 h-12 bg-gradient-to-br from-purple-100 to-purple-200 rounded-lg flex items-center justify-center mx-auto mb-2">
+                      <ApperIcon name="Percent" className="h-6 w-6 text-purple-600" />
+                    </div>
+                    <p className="text-sm text-gray-600">Annual Depreciation</p>
+                    <p className="text-2xl font-bold text-navy-900">
+                      ${holdingsData.rentalProperties.reduce((sum, p) => sum + p.annualDepreciation, 0).toLocaleString()}
+                    </p>
+                  </div>
+                  <div className="text-center">
+                    <div className="w-12 h-12 bg-gradient-to-br from-gold-100 to-gold-200 rounded-lg flex items-center justify-center mx-auto mb-2">
+                      <ApperIcon name="Target" className="h-6 w-6 text-gold-600" />
+                    </div>
+                    <p className="text-sm text-gray-600">Avg. Portfolio Growth</p>
+                    <p className="text-2xl font-bold text-blue-600">
+                      {(
+                        holdingsData.retirementAccounts.reduce((sum, a) => sum + a.growth, 0) / holdingsData.retirementAccounts.length
+                      ).toFixed(1)}%
+                    </p>
+                  </div>
+                </div>
+              </Card>
             </div>
           </div>
         </div>
