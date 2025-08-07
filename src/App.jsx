@@ -13,6 +13,7 @@ import Appointments from "@/components/pages/Appointments";
 import ActionItems from "@/components/pages/ActionItems";
 import EducationalResources from "@/components/pages/EducationalResources";
 import Messages from "@/components/pages/Messages";
+import ComplianceAlerts from "@/components/pages/ComplianceAlerts";
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -44,7 +45,8 @@ function App() {
               <Route path="/appointments" element={<Appointments />} />
               <Route path="/action-items" element={<ActionItems />} />
               <Route path="/educational-resources" element={<EducationalResources />} />
-              <Route path="/messages" element={<Messages />} />
+<Route path="/messages" element={<Messages />} />
+              <Route path="/compliance-alerts" element={<ComplianceAlerts />} />
             </Routes>
           </main>
         </div>

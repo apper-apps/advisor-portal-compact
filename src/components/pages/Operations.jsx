@@ -182,8 +182,19 @@ export default function Operations() {
         </Card>
 
         <Card>
-          <div className="p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Compliance Status</h3>
+<div className="p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold text-gray-900">Compliance Status</h3>
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => window.location.href = '/compliance-alerts'}
+                className="text-navy-600 border-navy-600 hover:bg-navy-50"
+              >
+                <ApperIcon name="Bell" size={16} className="mr-2" />
+                View All Alerts
+              </Button>
+            </div>
             <div className="space-y-3">
               {Object.entries(operationsData.complianceStatus).map(([key, status]) => (
                 <div key={key} className="flex items-center justify-between">

@@ -13,6 +13,7 @@ import Foundation from "@/components/pages/Foundation";
 import Badge from "@/components/atoms/Badge";
 import Button from "@/components/atoms/Button";
 import Card from "@/components/atoms/Card";
+import ComplianceAlertsWidget from "@/components/organisms/ComplianceAlertsWidget";
 const Dashboard = () => {
   const [clientData, setClientData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -237,7 +238,7 @@ const Dashboard = () => {
         </div>
 
         {/* Right Sidebar */}
-        <div className="space-y-6">
+<div className="space-y-6">
           {/* Action Items Widget */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
@@ -245,6 +246,15 @@ const Dashboard = () => {
             transition={{ duration: 0.5, delay: 0.3 }}
           >
             <ActionItemsWidget />
+          </motion.div>
+          
+          {/* Compliance Alerts Widget */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
+            <ComplianceAlertsWidget />
           </motion.div>
 
           {/* Recent Activity */}

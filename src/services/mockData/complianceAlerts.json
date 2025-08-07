@@ -1,0 +1,122 @@
+[
+  {
+    "Id": 1,
+    "clientId": 1,
+    "title": "Q4 2024 Tax Filing Deadline",
+    "description": "Quarterly tax filing deadline approaching. All required documents should be submitted before the due date.",
+    "type": "Tax Filing",
+    "priority": "high",
+    "dueDate": "2024-12-15",
+    "status": "active",
+    "isRecurring": true,
+    "recurringPattern": "quarterly",
+    "createdDate": "2024-11-15T10:00:00Z",
+    "updatedDate": "2024-11-15T10:00:00Z",
+    "snoozedUntil": null,
+    "customization": {
+      "reminderDays": [7, 3, 1],
+      "emailEnabled": true,
+      "smsEnabled": false
+    }
+  },
+  {
+    "Id": 2,
+    "clientId": 1,
+    "title": "Annual LLC Filing Due",
+    "description": "Annual entity filing for Smith Holdings LLC is due. Submit required documentation and fees.",
+    "type": "Entity Filing",
+    "priority": "high",
+    "dueDate": "2024-12-31",
+    "status": "active",
+    "isRecurring": true,
+    "recurringPattern": "annually",
+    "createdDate": "2024-10-01T09:00:00Z",
+    "updatedDate": "2024-10-01T09:00:00Z",
+    "snoozedUntil": null,
+    "customization": {
+      "reminderDays": [30, 14, 7, 1],
+      "emailEnabled": true,
+      "smsEnabled": true
+    }
+  },
+  {
+    "Id": 3,
+    "clientId": 1,
+    "title": "Trust Distribution Review",
+    "description": "Annual review of trust distributions and beneficiary allocations required.",
+    "type": "Trust Update",
+    "priority": "medium",
+    "dueDate": "2025-01-15",
+    "status": "active",
+    "isRecurring": true,
+    "recurringPattern": "annually",
+    "createdDate": "2024-11-01T14:30:00Z",
+    "updatedDate": "2024-11-01T14:30:00Z",
+    "snoozedUntil": null,
+    "customization": {
+      "reminderDays": [14, 7],
+      "emailEnabled": true,
+      "smsEnabled": false
+    }
+  },
+  {
+    "Id": 4,
+    "clientId": 1,
+    "title": "IRA Required Minimum Distribution",
+    "description": "Calculate and process required minimum distribution from retirement accounts.",
+    "type": "Investment Account",
+    "priority": "high",
+    "dueDate": "2024-12-31",
+    "status": "active",
+    "isRecurring": true,
+    "recurringPattern": "annually",
+    "createdDate": "2024-09-15T11:15:00Z",
+    "updatedDate": "2024-09-15T11:15:00Z",
+    "snoozedUntil": null,
+    "customization": {
+      "reminderDays": [60, 30, 14, 7],
+      "emailEnabled": true,
+      "smsEnabled": true
+    }
+  },
+  {
+    "Id": 5,
+    "clientId": 1,
+    "title": "Estate Plan Update Required",
+    "description": "Periodic review and update of estate planning documents due to recent changes.",
+    "type": "General Compliance",
+    "priority": "medium",
+    "dueDate": "2025-02-01",
+    "status": "snoozed",
+    "isRecurring": false,
+    "recurringPattern": null,
+    "createdDate": "2024-10-15T16:45:00Z",
+    "updatedDate": "2024-11-20T10:30:00Z",
+    "snoozedUntil": "2024-12-10T09:00:00Z",
+    "customization": {
+      "reminderDays": [21, 14, 7],
+      "emailEnabled": true,
+      "smsEnabled": false
+    }
+  },
+  {
+    "Id": 6,
+    "clientId": 1,
+    "title": "Investment Account Rebalancing",
+    "description": "Quarterly portfolio rebalancing to maintain target asset allocation.",
+    "type": "Investment Account",
+    "priority": "low",
+    "dueDate": "2025-01-31",
+    "status": "active",
+    "isRecurring": true,
+    "recurringPattern": "quarterly",
+    "createdDate": "2024-11-10T13:20:00Z",
+    "updatedDate": "2024-11-10T13:20:00Z",
+    "snoozedUntil": null,
+    "customization": {
+      "reminderDays": [14, 7],
+      "emailEnabled": true,
+      "smsEnabled": false
+    }
+  }
+]
