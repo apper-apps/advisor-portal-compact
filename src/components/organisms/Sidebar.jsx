@@ -12,9 +12,9 @@ const navigation = [
     { name: "Tax Planning", href: "/tax-planning", icon: "Calculator" },
     { name: "Wealth Building", href: "/wealth-building", icon: "TrendingUp" },
     { name: "Operations", href: "/operations", icon: "Building" },
+    { name: "Messages", href: "/messages", icon: "MessageSquare" },
     { name: "Educational Resources", href: "/educational-resources", icon: "BookOpen" },
   ];
-
   // Desktop Sidebar - Static positioning
   const DesktopSidebar = () => (
     <div className="hidden lg:flex lg:w-64 lg:flex-col lg:fixed lg:inset-y-0">

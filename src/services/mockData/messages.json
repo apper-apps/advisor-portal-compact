@@ -1,0 +1,176 @@
+[
+  {
+    "Id": 1,
+    "threadId": 1,
+    "subject": "Q4 Tax Planning Review",
+    "content": "Hi John, I've reviewed your Q4 tax situation and have some recommendations for year-end planning. Can we schedule a call this week to discuss?",
+    "senderId": 2,
+    "senderName": "Sarah Johnson",
+    "senderType": "advisor",
+    "recipientId": 1,
+    "recipientName": "John Smith",
+    "recipientType": "client",
+    "timestamp": "2024-01-15T14:30:00Z",
+    "isRead": true,
+    "priority": "routine",
+    "hasAttachments": false,
+    "attachments": []
+  },
+  {
+    "Id": 2,
+    "threadId": 1,
+    "subject": "Q4 Tax Planning Review",
+    "content": "That sounds great! I'm available Tuesday afternoon or Wednesday morning. Also, I have some questions about the new 401k contribution limits.",
+    "senderId": 1,
+    "senderName": "John Smith", 
+    "senderType": "client",
+    "recipientId": 2,
+    "recipientName": "Sarah Johnson",
+    "recipientType": "advisor",
+    "timestamp": "2024-01-15T16:45:00Z",
+    "isRead": true,
+    "priority": "routine",
+    "hasAttachments": false,
+    "attachments": []
+  },
+  {
+    "Id": 3,
+    "threadId": 1,
+    "subject": "Q4 Tax Planning Review",
+    "content": "Perfect! Let's schedule for Tuesday at 2 PM. I've attached the updated 401k contribution limits document for your review.",
+    "senderId": 2,
+    "senderName": "Sarah Johnson",
+    "senderType": "advisor", 
+    "recipientId": 1,
+    "recipientName": "John Smith",
+    "recipientType": "client",
+    "timestamp": "2024-01-15T17:15:00Z",
+    "isRead": false,
+    "priority": "routine",
+    "hasAttachments": true,
+    "attachments": [
+      {
+        "id": 1,
+        "name": "2024_401k_Contribution_Limits.pdf",
+        "size": "245 KB",
+        "type": "application/pdf",
+        "url": "/files/2024_401k_Contribution_Limits.pdf"
+      }
+    ]
+  },
+  {
+    "Id": 4,
+    "threadId": 2,
+    "subject": "URGENT: Market Volatility Response",
+    "content": "John, given the recent market volatility, I recommend we review your portfolio allocation immediately. Please let me know your availability for an emergency consultation.",
+    "senderId": 3,
+    "senderName": "Michael Chen",
+    "senderType": "advisor",
+    "recipientId": 1,
+    "recipientName": "John Smith", 
+    "recipientType": "client",
+    "timestamp": "2024-01-14T09:20:00Z",
+    "isRead": false,
+    "priority": "urgent",
+    "hasAttachments": false,
+    "attachments": []
+  },
+  {
+    "Id": 5,
+    "threadId": 3,
+    "subject": "Estate Planning Documents",
+    "content": "I've completed the first draft of your estate planning documents. Please review the attached files and let me know if you have any questions or concerns.",
+    "senderId": 4,
+    "senderName": "Jennifer Walsh",
+    "senderType": "advisor",
+    "recipientId": 1,
+    "recipientName": "John Smith",
+    "recipientType": "client", 
+    "timestamp": "2024-01-13T11:30:00Z",
+    "isRead": true,
+    "priority": "routine",
+    "hasAttachments": true,
+    "attachments": [
+      {
+        "id": 2,
+        "name": "Estate_Plan_Draft_v1.pdf",
+        "size": "1.2 MB",
+        "type": "application/pdf",
+        "url": "/files/Estate_Plan_Draft_v1.pdf"
+      },
+      {
+        "id": 3,
+        "name": "Trust_Documents.pdf", 
+        "size": "856 KB",
+        "type": "application/pdf",
+        "url": "/files/Trust_Documents.pdf"
+      }
+    ]
+  },
+  {
+    "Id": 6,
+    "threadId": 4,
+    "subject": "Insurance Policy Review",
+    "content": "Hi John, it's time for your annual insurance policy review. I've noticed some changes in your coverage that we should discuss.",
+    "senderId": 5,
+    "senderName": "David Rodriguez",
+    "senderType": "advisor",
+    "recipientId": 1,
+    "recipientName": "John Smith",
+    "recipientType": "client",
+    "timestamp": "2024-01-12T15:45:00Z",
+    "isRead": true,
+    "priority": "routine", 
+    "hasAttachments": false,
+    "attachments": []
+  },
+  {
+    "Id": 7,
+    "threadId": 2,
+    "subject": "URGENT: Market Volatility Response",
+    "content": "Thanks for reaching out, Michael. I'm quite concerned about the recent market movements. I'm available tomorrow morning at 10 AM or this afternoon after 3 PM.",
+    "senderId": 1,
+    "senderName": "John Smith",
+    "senderType": "client",
+    "recipientId": 3,
+    "recipientName": "Michael Chen",
+    "recipientType": "advisor",
+    "timestamp": "2024-01-14T10:15:00Z",
+    "isRead": true,
+    "priority": "urgent",
+    "hasAttachments": false,
+    "attachments": []
+  },
+  {
+    "Id": 8,
+    "threadId": 5,
+    "subject": "Monthly Portfolio Report - December",
+    "content": "Please find attached your December portfolio performance report. Overall, we're tracking well against our targets despite market conditions.",
+    "senderId": 2,
+    "senderName": "Sarah Johnson",
+    "senderType": "advisor",
+    "recipientId": 1,
+    "recipientName": "John Smith",
+    "recipientType": "client",
+    "timestamp": "2024-01-11T09:00:00Z",
+    "isRead": true,
+    "priority": "routine",
+    "hasAttachments": true,
+    "attachments": [
+      {
+        "id": 4,
+        "name": "Portfolio_Report_December_2024.pdf",
+        "size": "2.1 MB", 
+        "type": "application/pdf",
+        "url": "/files/Portfolio_Report_December_2024.pdf"
+      },
+      {
+        "id": 5,
+        "name": "Performance_Summary.xlsx",
+        "size": "145 KB",
+        "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", 
+        "url": "/files/Performance_Summary.xlsx"
+      }
+    ]
+  }
+]

@@ -12,6 +12,8 @@ import Operations from "@/components/pages/Operations";
 import Appointments from "@/components/pages/Appointments";
 import ActionItems from "@/components/pages/ActionItems";
 import EducationalResources from "@/components/pages/EducationalResources";
+import Messages from "@/components/pages/Messages";
+
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -42,6 +44,7 @@ function App() {
               <Route path="/appointments" element={<Appointments />} />
               <Route path="/action-items" element={<ActionItems />} />
               <Route path="/educational-resources" element={<EducationalResources />} />
+              <Route path="/messages" element={<Messages />} />
             </Routes>
           </main>
         </div>
