@@ -11,7 +11,7 @@ import WealthBuilding from "@/components/pages/WealthBuilding";
 import Operations from "@/components/pages/Operations";
 import Appointments from "@/components/pages/Appointments";
 import ActionItems from "@/components/pages/ActionItems";
-
+import EducationalResources from "@/components/pages/EducationalResources";
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -41,6 +41,7 @@ function App() {
 <Route path="/operations" element={<Operations />} />
               <Route path="/appointments" element={<Appointments />} />
               <Route path="/action-items" element={<ActionItems />} />
+              <Route path="/educational-resources" element={<EducationalResources />} />
             </Routes>
           </main>
         </div>

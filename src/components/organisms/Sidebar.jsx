@@ -12,6 +12,7 @@ const navigation = [
     { name: "Tax Planning", href: "/tax-planning", icon: "Calculator" },
     { name: "Wealth Building", href: "/wealth-building", icon: "TrendingUp" },
     { name: "Operations", href: "/operations", icon: "Building" },
+    { name: "Educational Resources", href: "/educational-resources", icon: "BookOpen" },
   ];
 
   // Desktop Sidebar - Static positioning
