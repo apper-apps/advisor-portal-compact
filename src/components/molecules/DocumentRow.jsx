@@ -91,17 +91,17 @@ const DocumentRow = ({ document, onDownload }) => {
       <td className="px-6 py-4 text-sm text-gray-600">
         {formatFileSize(document.fileSize)}
       </td>
-      <td className="px-6 py-4">
+<td className="px-4 sm:px-6 py-4">
         <div className="flex items-center gap-2">
           <Button
             size="sm"
             variant="outline"
             onClick={handleDownload}
             loading={downloading}
-            className="text-xs"
+            className="text-xs min-h-[44px] touch-manipulation"
           >
             <ApperIcon name="Download" className="h-4 w-4 mr-1" />
-            Download
+            <span className="hidden sm:inline">Download</span>
           </Button>
         </div>
       </td>

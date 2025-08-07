@@ -71,8 +71,8 @@ const TrifectaOverview = () => {
         </motion.p>
       </div>
 
-      {/* Pillars Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+{/* Pillars Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
         {pillars.map((pillar, index) => (
           <motion.div
             key={pillar.name}

@@ -17,10 +17,10 @@ const Button = React.forwardRef(({
     ghost: "bg-transparent hover:bg-gray-100 text-navy-700 border-0",
   };
 
-  const sizes = {
-    sm: "px-3 py-1.5 text-sm font-medium",
-    default: "px-6 py-2.5 text-sm font-semibold",
-    lg: "px-8 py-3 text-base font-semibold",
+const sizes = {
+    sm: "px-3 py-2 text-sm font-medium min-h-[36px] sm:min-h-[32px]",
+    default: "px-6 py-3 text-sm font-semibold min-h-[44px]",
+    lg: "px-8 py-4 text-base font-semibold min-h-[48px]",
   };
 
   return (

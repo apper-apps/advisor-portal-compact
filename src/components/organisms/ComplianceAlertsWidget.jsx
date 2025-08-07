@@ -237,12 +237,12 @@ const ComplianceAlertsWidget = () => {
                         <ApperIcon name="Play" size={12} />
                       </Button>
                     ) : (
-                      <div className="relative">
+<div className="relative">
                         <Button
                           size="sm"
                           variant="outline"
                           disabled={processingId === alert.Id}
-                          className="text-gray-600 border-gray-300 hover:bg-gray-50 text-xs px-2 py-1 group"
+                          className="text-gray-600 border-gray-300 hover:bg-gray-50 text-xs px-2 py-1 group min-h-[44px] touch-manipulation"
                           onClick={(e) => {
                             e.stopPropagation();
                             const rect = e.currentTarget.getBoundingClientRect();
@@ -258,24 +258,24 @@ const ComplianceAlertsWidget = () => {
                           Snooze
                         </Button>
                         <div 
-                          className="absolute right-0 top-8 bg-white border border-gray-200 rounded-md shadow-lg z-10 min-w-32"
+                          className="absolute right-0 top-12 sm:top-8 bg-white border border-gray-200 rounded-md shadow-lg z-50 min-w-32"
                           style={{ display: 'none' }}
                           onClick={(e) => e.stopPropagation()}
                         >
                           <button
-                            className="block w-full text-left px-3 py-2 text-xs hover:bg-gray-50"
+                            className="block w-full text-left px-3 py-3 sm:py-2 text-xs hover:bg-gray-50 min-h-[44px] sm:min-h-auto touch-manipulation"
                             onClick={() => handleSnooze(alert.Id, 1)}
                           >
                             1 Hour
                           </button>
                           <button
-                            className="block w-full text-left px-3 py-2 text-xs hover:bg-gray-50"
+                            className="block w-full text-left px-3 py-3 sm:py-2 text-xs hover:bg-gray-50 min-h-[44px] sm:min-h-auto touch-manipulation"
                             onClick={() => handleSnooze(alert.Id, 24)}
                           >
                             1 Day
                           </button>
                           <button
-                            className="block w-full text-left px-3 py-2 text-xs hover:bg-gray-50"
+                            className="block w-full text-left px-3 py-3 sm:py-2 text-xs hover:bg-gray-50 min-h-[44px] sm:min-h-auto touch-manipulation"
                             onClick={() => handleSnooze(alert.Id, 168)}
                           >
                             1 Week

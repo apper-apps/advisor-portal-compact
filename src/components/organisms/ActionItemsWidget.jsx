@@ -139,48 +139,48 @@ const ActionItemsWidget = ({ clientId = 1 }) => {
           <p className="text-sm text-gray-600">All tasks completed!</p>
         </div>
       ) : (
-        <div className="space-y-4">
+<div className="space-y-3 sm:space-y-4">
           {actionItems.map((item, index) => (
             <motion.div
               key={item.Id}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.2, delay: index * 0.1 }}
-              className="flex items-start gap-3 p-3 rounded-lg border border-gray-100 hover:border-gray-200 transition-colors"
+              className="flex items-start gap-3 p-3 sm:p-4 rounded-lg border border-gray-100 hover:border-gray-200 transition-colors touch-manipulation"
             >
               <div className="flex-shrink-0 mt-1">
-                <div className="w-6 h-6 bg-gray-100 rounded flex items-center justify-center">
+                <div className="w-6 h-6 sm:w-8 sm:h-8 bg-gray-100 rounded flex items-center justify-center">
                   <ApperIcon 
                     name={getPriorityIcon(item.priority)} 
-                    className={`h-3 w-3 ${item.priority === 'high' ? 'text-red-500' : item.priority === 'medium' ? 'text-yellow-500' : 'text-gray-500'}`} 
+                    className={`h-3 w-3 sm:h-4 sm:w-4 ${item.priority === 'high' ? 'text-red-500' : item.priority === 'medium' ? 'text-yellow-500' : 'text-gray-500'}`} 
                   />
                 </div>
               </div>
               
               <div className="flex-1 min-w-0">
-                <div className="flex items-start justify-between gap-2 mb-1">
-                  <h4 className="text-sm font-semibold text-navy-900 truncate">
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-2">
+                  <h4 className="text-sm sm:text-base font-semibold text-navy-900">
                     {item.title}
                   </h4>
-                  <Badge variant={getPriorityVariant(item.priority)} size="sm">
+                  <Badge variant={getPriorityVariant(item.priority)} size="sm" className="w-fit">
                     {item.priority}
                   </Badge>
                 </div>
                 
                 {item.description && (
-                  <p className="text-xs text-gray-600 mb-2 line-clamp-2">
+                  <p className="text-xs sm:text-sm text-gray-600 mb-3 line-clamp-2">
                     {item.description}
                   </p>
                 )}
                 
-                <div className="flex items-center justify-between">
-                  <span className={`text-xs font-medium ${getStatusColor(item)}`}>
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                  <span className={`text-xs sm:text-sm font-medium ${getStatusColor(item)}`}>
                     {formatDueDate(item.dueDate)}
                   </span>
                   
                   <button
                     onClick={() => handleCompleteItem(item.Id)}
-                    className="text-xs text-green-600 hover:text-green-700 font-medium"
+                    className="text-xs sm:text-sm text-green-600 hover:text-green-700 font-medium min-h-[44px] sm:min-h-auto px-2 py-1 rounded touch-manipulation text-left sm:text-center"
                   >
                     Mark Complete
                   </button>

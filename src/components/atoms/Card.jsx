@@ -8,13 +8,13 @@ const Card = React.forwardRef(({
   children, 
   ...props 
 }, ref) => {
-  return (
+return (
     <div
       ref={ref}
       className={cn(
         "rounded-xl border border-gray-200 shadow-sm",
         gradient ? "bg-gradient-to-br from-white to-gray-50" : "bg-white",
-        hover && "transition-all duration-200 hover:shadow-md hover:-translate-y-0.5",
+        hover && "transition-all duration-200 hover:shadow-md sm:hover:-translate-y-0.5 touch-manipulation",
         className
       )}
       {...props}

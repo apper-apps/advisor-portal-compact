@@ -31,11 +31,11 @@ function App() {
       <div className="min-h-screen bg-gray-50">
         <Sidebar isOpen={sidebarOpen} onClose={handleSidebarClose} />
         
-        <div className="lg:pl-64">
+<div className="lg:pl-64">
           <Header onMenuToggle={handleMenuToggle} clientName="John Smith" />
           
-<main className="p-6 lg:p-8">
-<Routes>
+          <main className="p-4 sm:p-6 lg:p-8">
+            <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/documents" element={<Documents />} />
 <Route path="/foundation" element={<Foundation />} />

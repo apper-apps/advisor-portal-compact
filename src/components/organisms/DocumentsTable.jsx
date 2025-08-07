@@ -247,16 +247,16 @@ return (
             </Card>
           ))}
         </div>
-      ) : (
+) : (
         <Card className="overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="w-full">
+          <div className="overflow-x-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+            <table className="w-full min-w-[700px]">
               <thead className="bg-gray-50 border-b border-gray-200">
                 <tr>
-                  <th className="px-6 py-4 text-left">
+                  <th className="px-4 sm:px-6 py-3 sm:py-4 text-left">
                     <button
                       onClick={() => handleSort("name")}
-                      className="flex items-center gap-2 text-xs font-semibold text-gray-700 uppercase tracking-wider hover:text-gray-900"
+                      className="flex items-center gap-2 text-xs font-semibold text-gray-700 uppercase tracking-wider hover:text-gray-900 min-h-[44px] touch-manipulation"
                     >
                       Document
                       <ApperIcon 
@@ -265,13 +265,13 @@ return (
                       />
                     </button>
                   </th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                  <th className="px-4 sm:px-6 py-3 sm:py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                     Category
                   </th>
-                  <th className="px-6 py-4 text-left">
+                  <th className="px-4 sm:px-6 py-3 sm:py-4 text-left">
                     <button
                       onClick={() => handleSort("uploadDate")}
-                      className="flex items-center gap-2 text-xs font-semibold text-gray-700 uppercase tracking-wider hover:text-gray-900"
+                      className="flex items-center gap-2 text-xs font-semibold text-gray-700 uppercase tracking-wider hover:text-gray-900 min-h-[44px] touch-manipulation"
                     >
                       Date
                       <ApperIcon 
@@ -280,10 +280,10 @@ return (
                       />
                     </button>
                   </th>
-                  <th className="px-6 py-4 text-left">
+                  <th className="px-4 sm:px-6 py-3 sm:py-4 text-left">
                     <button
                       onClick={() => handleSort("fileSize")}
-                      className="flex items-center gap-2 text-xs font-semibold text-gray-700 uppercase tracking-wider hover:text-gray-900"
+                      className="flex items-center gap-2 text-xs font-semibold text-gray-700 uppercase tracking-wider hover:text-gray-900 min-h-[44px] touch-manipulation"
                     >
                       Size
                       <ApperIcon 
@@ -292,46 +292,46 @@ return (
                       />
                     </button>
                   </th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                  <th className="px-4 sm:px-6 py-3 sm:py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                     Actions
                   </th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-100">
                 {filteredDocuments.map((document) => (
-                  <tr key={document.Id} className="hover:bg-gray-50">
-                    <td className="px-6 py-4">
+                  <tr key={document.Id} className="hover:bg-gray-50 transition-colors">
+                    <td className="px-4 sm:px-6 py-3 sm:py-4">
                       <div className="flex items-center gap-3">
                         <div className="p-2 bg-navy-50 rounded">
                           <ApperIcon name={getFileIcon(document.type)} size={16} className="text-navy-600" />
                         </div>
-                        <div>
-                          <p className="font-medium text-gray-900">{document.name}</p>
-                          <p className="text-sm text-gray-500">{document.type.toUpperCase()}</p>
+                        <div className="min-w-0 flex-1">
+                          <p className="font-medium text-gray-900 truncate text-sm sm:text-base">{document.name}</p>
+                          <p className="text-xs text-gray-500">{document.type.toUpperCase()}</p>
                         </div>
                       </div>
                     </td>
-                    <td className="px-6 py-4">
+                    <td className="px-4 sm:px-6 py-3 sm:py-4">
                       <div className="flex flex-col gap-1">
-                        <span className="text-sm text-gray-900">{document.category}</span>
+                        <span className="text-xs sm:text-sm text-gray-900">{document.category}</span>
                         <Badge variant="secondary" className="w-fit text-xs">
                           {document.trifectaComponent}
                         </Badge>
                       </div>
                     </td>
-                    <td className="px-6 py-4 text-sm text-gray-600">
+                    <td className="px-4 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm text-gray-600">
                       {new Date(document.uploadDate).toLocaleDateString()}
                     </td>
-                    <td className="px-6 py-4 text-sm text-gray-600">
+                    <td className="px-4 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm text-gray-600">
                       {formatFileSize(document.fileSize)}
                     </td>
-                    <td className="px-6 py-4">
-                      <div className="flex items-center gap-2">
+                    <td className="px-4 sm:px-6 py-3 sm:py-4">
+                      <div className="flex items-center gap-1 sm:gap-2">
                         <Button
                           size="sm"
                           variant="ghost"
                           onClick={() => onPreview && onPreview(document)}
-                          className="text-gray-400 hover:text-gray-600"
+                          className="text-gray-400 hover:text-gray-600 min-w-[44px] min-h-[44px] p-2 touch-manipulation"
                         >
                           <ApperIcon name="Eye" size={16} />
                         </Button>
@@ -339,7 +339,7 @@ return (
                           size="sm"
                           variant="ghost"
                           onClick={() => handleDownload(document)}
-                          className="text-gray-400 hover:text-gray-600"
+                          className="text-gray-400 hover:text-gray-600 min-w-[44px] min-h-[44px] p-2 touch-manipulation"
                         >
                           <ApperIcon name="Download" size={16} />
                         </Button>
