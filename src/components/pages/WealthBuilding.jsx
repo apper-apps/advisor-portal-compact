@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import Chart from "react-apexcharts";
+import { toast } from "react-toastify";
 import ApperIcon from "@/components/ApperIcon";
-import Card from "@/components/atoms/Card";
+import Operations from "@/components/pages/Operations";
+import Foundation from "@/components/pages/Foundation";
 import Badge from "@/components/atoms/Badge";
-
+import Input from "@/components/atoms/Input";
+import Button from "@/components/atoms/Button";
+import Card from "@/components/atoms/Card";
 const WealthBuilding = () => {
   const portfolioAllocation = [
     { category: "Stocks", percentage: 45, amount: "$540,000", color: "from-blue-500 to-blue-600" },
@@ -166,7 +171,206 @@ const upcomingActions = [
         status: "Active"
       }
     ]
+};
+
+  // Financial Projection Scenarios
+  const projectionScenarios = {
+    conservative: {
+      name: "Conservative Growth",
+      description: "Focus on stability with steady, predictable returns",
+      stocksReturn: 6.5,
+      bondsReturn: 3.8,
+      realEstateReturn: 5.2,
+      alternativeReturn: 4.5,
+      inflationRate: 2.8,
+      riskLevel: "Low",
+      color: "#10b981"
+    },
+    moderate: {
+      name: "Moderate Growth", 
+      description: "Balanced approach with moderate risk and growth potential",
+      stocksReturn: 8.7,
+      bondsReturn: 4.2,
+      realEstateReturn: 7.1,
+      alternativeReturn: 6.8,
+      inflationRate: 2.5,
+      riskLevel: "Medium",
+      color: "#3b82f6"
+    },
+    aggressive: {
+      name: "Aggressive Growth",
+      description: "Higher risk strategy targeting maximum long-term growth",
+      stocksReturn: 11.2,
+      bondsReturn: 4.5,
+      realEstateReturn: 9.4,
+      alternativeReturn: 12.1,
+      inflationRate: 2.3,
+      riskLevel: "High",
+      color: "#f59e0b"
+    }
   };
+
+  // Calculate projections based on current portfolio and scenarios
+  const calculateProjections = (scenario, years = 5) => {
+    const currentTotal = 1200000; // Current total from portfolio data
+    const projections = [];
+    
+    for (let year = 0; year <= years; year++) {
+      const stocksValue = 540000 * Math.pow(1 + scenario.stocksReturn / 100, year);
+      const bondsValue = 300000 * Math.pow(1 + scenario.bondsReturn / 100, year);
+      const realEstateValue = 240000 * Math.pow(1 + scenario.realEstateReturn / 100, year);
+      const alternativeValue = 120000 * Math.pow(1 + scenario.alternativeReturn / 100, year);
+      
+      const totalValue = stocksValue + bondsValue + realEstateValue + alternativeValue;
+      const realValue = totalValue / Math.pow(1 + scenario.inflationRate / 100, year);
+      
+      projections.push({
+        year: new Date().getFullYear() + year,
+        totalValue: Math.round(totalValue),
+        realValue: Math.round(realValue),
+        stocksValue: Math.round(stocksValue),
+        bondsValue: Math.round(bondsValue),
+        realEstateValue: Math.round(realEstateValue),
+        alternativeValue: Math.round(alternativeValue),
+        annualGrowth: year > 0 ? ((totalValue / currentTotal) ** (1 / year) - 1) * 100 : 0
+      });
+    }
+    
+    return projections;
+  };
+
+  // State for projections
+  const [selectedScenario, setSelectedScenario] = useState('moderate');
+  const [projectionYears, setProjectionYears] = useState(5);
+  const [currentProjections, setCurrentProjections] = useState(
+    calculateProjections(projectionScenarios.moderate, 5)
+  );
+
+  // Chart configuration
+  const chartOptions = {
+    chart: {
+      type: 'area',
+      height: 350,
+      toolbar: { show: false },
+      zoom: { enabled: false }
+    },
+    colors: [
+      projectionScenarios[selectedScenario]?.color || '#3b82f6',
+      '#10b981',
+      '#f59e0b'
+    ],
+    dataLabels: { enabled: false },
+    stroke: {
+      curve: 'smooth',
+      width: 3
+    },
+    fill: {
+      type: 'gradient',
+      gradient: {
+        shadeIntensity: 1,
+        opacityFrom: 0.4,
+        opacityTo: 0.1,
+        stops: [0, 90, 100]
+      }
+    },
+    xaxis: {
+      categories: currentProjections.map(p => p.year.toString()),
+      labels: {
+        style: {
+          colors: '#64748b',
+          fontSize: '12px',
+          fontFamily: 'Inter, system-ui, sans-serif'
+        }
+      }
+    },
+    yaxis: {
+      labels: {
+        formatter: (value) => `$${(value / 1000000).toFixed(1)}M`,
+        style: {
+          colors: '#64748b',
+          fontSize: '12px',
+          fontFamily: 'Inter, system-ui, sans-serif'
+        }
+      }
+    },
+    grid: {
+      borderColor: '#e2e8f0',
+      strokeDashArray: 2
+    },
+    legend: {
+      position: 'top',
+      horizontalAlign: 'left',
+      fontFamily: 'Inter, system-ui, sans-serif',
+      fontSize: '14px',
+      markers: { width: 12, height: 12 }
+    },
+    tooltip: {
+      shared: true,
+      intersect: false,
+      y: {
+        formatter: (value) => `$${value.toLocaleString()}`
+      }
+    }
+  };
+
+  const chartSeries = [
+    {
+      name: 'Total Portfolio Value',
+      data: currentProjections.map(p => p.totalValue)
+    },
+    {
+      name: 'Inflation-Adjusted Value',
+      data: currentProjections.map(p => p.realValue)
+    }
+  ];
+
+  // Update projections when scenario changes
+  useEffect(() => {
+    const newProjections = calculateProjections(
+      projectionScenarios[selectedScenario], 
+      projectionYears
+    );
+    setCurrentProjections(newProjections);
+  }, [selectedScenario, projectionYears]);
+
+  // Handle scenario change
+  const handleScenarioChange = (scenarioKey) => {
+    setSelectedScenario(scenarioKey);
+    toast.success(`Switched to ${projectionScenarios[scenarioKey].name} scenario`);
+  };
+
+  // Asset breakdown chart
+  const assetBreakdownOptions = {
+    chart: {
+      type: 'donut',
+      height: 300
+    },
+    colors: ['#3b82f6', '#10b981', '#f59e0b', '#8b5cf6'],
+    labels: ['Stocks', 'Bonds', 'Real Estate', 'Alternative'],
+    dataLabels: {
+      enabled: true,
+      formatter: (val) => `${val.toFixed(1)}%`
+    },
+    legend: {
+      position: 'bottom',
+      fontFamily: 'Inter, system-ui, sans-serif'
+    },
+    plotOptions: {
+      pie: {
+        donut: {
+          size: '60%'
+        }
+      }
+    }
+  };
+
+  const finalProjection = currentProjections[currentProjections.length - 1];
+  const assetBreakdownSeries = [
+    finalProjection?.stocksValue || 0,
+    finalProjection?.bondsValue || 0, 
+    finalProjection?.realEstateValue || 0,
+    finalProjection?.alternativeValue || 0
+  ];
 
   const getStatusColor = (status) => {
     switch (status.toLowerCase()) {
@@ -626,12 +830,262 @@ const upcomingActions = [
         </div>
 
         {/* Right Column - Performance & Actions */}
-        <div className="space-y-6">
-          {/* Performance */}
+<div className="space-y-6">
+          {/* 5-Year Wealth Projection Tool */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
+          >
+            <Card className="p-6">
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-3">
+                  <ApperIcon name="TrendingUp" className="h-6 w-6 text-blue-600" />
+                  <div>
+                    <h3 className="text-xl font-bold text-navy-900">5-Year Wealth Projections</h3>
+                    <p className="text-sm text-gray-600">Trifecta System growth scenarios based on current holdings</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <label className="text-sm font-medium text-navy-700">Years:</label>
+                  <Input
+                    type="number"
+                    value={projectionYears}
+                    onChange={(e) => setProjectionYears(Math.min(10, Math.max(1, parseInt(e.target.value) || 5)))}
+                    className="w-16 text-center"
+                    min="1"
+                    max="10"
+                  />
+                </div>
+              </div>
+
+              {/* Scenario Selector */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                {Object.entries(projectionScenarios).map(([key, scenario]) => (
+                  <motion.div
+                    key={key}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <button
+                      onClick={() => handleScenarioChange(key)}
+                      className={`w-full p-4 rounded-xl border-2 transition-all text-left ${
+                        selectedScenario === key
+                          ? 'border-blue-500 bg-blue-50'
+                          : 'border-gray-200 hover:border-gray-300 bg-white'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between mb-2">
+                        <h4 className="font-semibold text-navy-900">{scenario.name}</h4>
+                        <Badge 
+                          variant={scenario.riskLevel === 'Low' ? 'success' : scenario.riskLevel === 'High' ? 'warning' : 'info'}
+                          size="sm"
+                        >
+                          {scenario.riskLevel}
+                        </Badge>
+                      </div>
+                      <p className="text-xs text-gray-600 mb-3">{scenario.description}</p>
+                      <div className="grid grid-cols-2 gap-2 text-xs">
+                        <div>
+                          <span className="text-gray-500">Stocks:</span>
+                          <span className="font-medium ml-1">{scenario.stocksReturn}%</span>
+                        </div>
+                        <div>
+                          <span className="text-gray-500">Real Estate:</span>
+                          <span className="font-medium ml-1">{scenario.realEstateReturn}%</span>
+                        </div>
+                      </div>
+                    </button>
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* Main Projection Chart */}
+              <div className="mb-6">
+                <Chart
+                  options={chartOptions}
+                  series={chartSeries}
+                  type="area"
+                  height={350}
+                />
+              </div>
+
+              {/* Key Metrics */}
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                <div className="bg-gradient-to-r from-blue-50 to-blue-100 p-4 rounded-lg">
+                  <div className="flex items-center gap-2 mb-1">
+                    <ApperIcon name="DollarSign" className="h-4 w-4 text-blue-600" />
+                    <span className="text-xs font-medium text-blue-700">Final Value</span>
+                  </div>
+                  <p className="text-lg font-bold text-blue-900">
+                    ${finalProjection?.totalValue?.toLocaleString() || '0'}
+                  </p>
+                </div>
+                
+                <div className="bg-gradient-to-r from-green-50 to-green-100 p-4 rounded-lg">
+                  <div className="flex items-center gap-2 mb-1">
+                    <ApperIcon name="TrendingUp" className="h-4 w-4 text-green-600" />
+                    <span className="text-xs font-medium text-green-700">Total Growth</span>
+                  </div>
+                  <p className="text-lg font-bold text-green-900">
+                    {finalProjection?.totalValue ? 
+                      `${((finalProjection.totalValue / 1200000 - 1) * 100).toFixed(1)}%` : '0%'
+                    }
+                  </p>
+                </div>
+
+                <div className="bg-gradient-to-r from-gold-50 to-gold-100 p-4 rounded-lg">
+                  <div className="flex items-center gap-2 mb-1">
+                    <ApperIcon name="BarChart3" className="h-4 w-4 text-gold-600" />
+                    <span className="text-xs font-medium text-gold-700">Annual Return</span>
+                  </div>
+                  <p className="text-lg font-bold text-gold-900">
+                    {finalProjection?.annualGrowth?.toFixed(1) || '0.0'}%
+                  </p>
+                </div>
+
+                <div className="bg-gradient-to-r from-purple-50 to-purple-100 p-4 rounded-lg">
+                  <div className="flex items-center gap-2 mb-1">
+                    <ApperIcon name="Shield" className="h-4 w-4 text-purple-600" />
+                    <span className="text-xs font-medium text-purple-700">Real Value</span>
+                  </div>
+                  <p className="text-lg font-bold text-purple-900">
+                    ${finalProjection?.realValue?.toLocaleString() || '0'}
+                  </p>
+                </div>
+              </div>
+
+              {/* Projected Asset Breakdown */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div>
+                  <h4 className="text-lg font-semibold text-navy-900 mb-4">
+                    Projected Asset Allocation ({projectionYears} Years)
+                  </h4>
+                  <Chart
+                    options={assetBreakdownOptions}
+                    series={assetBreakdownSeries}
+                    type="donut"
+                    height={300}
+                  />
+                </div>
+
+                <div>
+                  <h4 className="text-lg font-semibold text-navy-900 mb-4">Year-by-Year Growth</h4>
+                  <div className="space-y-2 max-h-64 overflow-y-auto">
+                    {currentProjections.slice(1).map((projection, index) => (
+                      <div key={projection.year} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                        <div>
+<p className="font-semibold text-navy-900 text-sm">{projection.year}</p>
+                          <p className="text-xs text-gray-600">
+                            Growth: +{(((projection.totalValue / 1200000) ** (1 / (index + 1))) - 1) * 100).toFixed(1)}%
+                          </p>
+                        </div>
+                        <div className="text-right">
+                          <p className="font-bold text-sm text-navy-900">
+                            ${projection.totalValue.toLocaleString()}
+                          </p>
+                          <p className="text-xs text-gray-500">
+                            Real: ${projection.realValue.toLocaleString()}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </Card>
+          </motion.div>
+
+          {/* Trifecta System Strategy Breakdown */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
+            <Card className="p-6">
+              <h3 className="text-lg font-bold text-navy-900 mb-4 flex items-center gap-2">
+                <ApperIcon name="Target" className="h-5 w-5 text-navy-600" />
+                Trifecta System Growth Strategies
+              </h3>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {/* Foundation Strategy */}
+                <div className="border-l-4 border-blue-500 pl-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <ApperIcon name="Shield" className="h-5 w-5 text-blue-600" />
+                    <h4 className="font-semibold text-navy-900">Foundation</h4>
+                  </div>
+                  <p className="text-sm text-gray-600 mb-3">Tax optimization and stable income streams</p>
+                  <div className="space-y-2 text-xs">
+                    <div className="flex justify-between">
+                      <span>Retirement Accounts:</span>
+                      <span className="font-medium">$334,000</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Tax Benefits:</span>
+                      <span className="font-medium text-green-600">$17,455/year</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Growth Rate:</span>
+                      <span className="font-medium">{projectionScenarios[selectedScenario].bondsReturn}%</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Operations Strategy */}
+                <div className="border-l-4 border-green-500 pl-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <ApperIcon name="Settings" className="h-5 w-5 text-green-600" />
+                    <h4 className="font-semibold text-navy-900">Operations</h4>
+                  </div>
+                  <p className="text-sm text-gray-600 mb-3">Asset protection and business structures</p>
+                  <div className="space-y-2 text-xs">
+                    <div className="flex justify-between">
+                      <span>Protected Assets:</span>
+                      <span className="font-medium">$560,000</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Monthly Cash Flow:</span>
+                      <span className="font-medium text-green-600">$2,565</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Growth Rate:</span>
+                      <span className="font-medium">{projectionScenarios[selectedScenario].realEstateReturn}%</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Holdings Strategy */}
+                <div className="border-l-4 border-gold-500 pl-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <ApperIcon name="TrendingUp" className="h-5 w-5 text-gold-600" />
+                    <h4 className="font-semibold text-navy-900">Holdings</h4>
+                  </div>
+                  <p className="text-sm text-gray-600 mb-3">Investment portfolio and wealth building</p>
+                  <div className="space-y-2 text-xs">
+                    <div className="flex justify-between">
+                      <span>Investment Portfolio:</span>
+                      <span className="font-medium">$657,000</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Passive Income:</span>
+                      <span className="font-medium text-green-600">$2,565/month</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Growth Rate:</span>
+                      <span className="font-medium">{projectionScenarios[selectedScenario].stocksReturn}%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Card>
+          </motion.div>
+
+          {/* Performance */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
           >
             <Card className="p-6">
               <h3 className="text-lg font-bold text-navy-900 mb-4 flex items-center gap-2">
@@ -661,7 +1115,7 @@ const upcomingActions = [
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
           >
             <Card className="p-6">
               <h3 className="text-lg font-bold text-navy-900 mb-4 flex items-center gap-2">
@@ -692,7 +1146,7 @@ const upcomingActions = [
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.5 }}
+            transition={{ duration: 0.5, delay: 0.7 }}
           >
             <Card className="p-6">
               <h3 className="text-lg font-bold text-navy-900 mb-4">Investment Tools</h3>
