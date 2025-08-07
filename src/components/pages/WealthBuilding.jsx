@@ -977,7 +977,7 @@ const upcomingActions = [
                         <div>
                           <p className="font-semibold text-navy-900 text-sm">{projection.year}</p>
                           <p className="text-xs text-gray-600">
-                            Growth: +{(((projection.totalValue / 1200000) ** (1 / (index + 1))) - 1) * 100).toFixed(1)}%
+                            Growth: +{(((projection.totalValue / 1200000) ** (1 / (index + 1)) - 1) * 100).toFixed(1)}%
                           </p>
                         </div>
                         <div className="text-right">
