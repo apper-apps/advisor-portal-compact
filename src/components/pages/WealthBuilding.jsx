@@ -972,10 +972,10 @@ const upcomingActions = [
                 <div>
                   <h4 className="text-lg font-semibold text-navy-900 mb-4">Year-by-Year Growth</h4>
                   <div className="space-y-2 max-h-64 overflow-y-auto">
-                    {currentProjections.slice(1).map((projection, index) => (
-                      <div key={projection.year} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+{currentProjections.slice(1).map((projection, index) => (
+<div key={projection.year} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                         <div>
-<p className="font-semibold text-navy-900 text-sm">{projection.year}</p>
+                          <p className="font-semibold text-navy-900 text-sm">{projection.year}</p>
                           <p className="text-xs text-gray-600">
                             Growth: +{(((projection.totalValue / 1200000) ** (1 / (index + 1))) - 1) * 100).toFixed(1)}%
                           </p>
